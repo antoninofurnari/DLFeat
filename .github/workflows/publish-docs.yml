@@ -1,0 +1,44 @@
+name: Publish Docs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Or your default branch name (e.g., master)
+  pull_request: # Optional: build on pull requests to check for errors
+
+jobs:
+  build-and-deploy-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to push to gh-pages branch
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # Or your preferred Python version
+
+      - name: Install dependencies for docs and library
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r docs/requirements.txt 
+          # Install DLFeat's main dependencies for autodoc to import the module
+          # Using CPU-only PyTorch to speed up the action
+          pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu 
+          pip install transformers sentence-transformers timm pytorchvideo Pillow numpy scipy scikit-learn
+
+      - name: Build Sphinx documentation
+        run: |
+          sphinx-build -b html docs/source docs/build/html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' # Only deploy on push to main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build/html
+          # Optional: publish_branch: gh-pages (default)
+          # Optional: cname: yourcustomdomain.com
