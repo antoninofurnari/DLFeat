@@ -43,6 +43,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started with DLFeat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html#basic-usage">Basic Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../model_zoo.html">Model Zoo</a></li>
 </ul>
 
@@ -151,7 +152,7 @@
     <span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
         <span class="n">AutoProcessor</span><span class="p">,</span> <span class="n">AutoModel</span><span class="p">,</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">Wav2Vec2FeatureExtractor</span><span class="p">,</span>
         <span class="n">AutoImageProcessor</span><span class="p">,</span> 
-        <span class="n">CLIPProcessor</span><span class="p">,</span> <span class="n">CLIPModel</span><span class="p">,</span> <span class="n">BlipProcessor</span><span class="p">,</span> <span class="n">BlipModel</span><span class="p">,</span>
+        <span class="n">CLIPProcessor</span><span class="p">,</span> <span class="n">CLIPModel</span><span class="p">,</span> <span class="n">BlipProcessor</span><span class="p">,</span> <span class="n">BlipModel</span><span class="p">,</span> <span class="c1"># Kept Blip for potential future re-add</span>
         <span class="n">VideoMAEImageProcessor</span><span class="p">,</span> <span class="n">VideoMAEModel</span><span class="p">,</span> 
         <span class="n">XCLIPProcessor</span><span class="p">,</span> <span class="n">XCLIPModel</span><span class="p">,</span>
         <span class="n">ASTFeatureExtractor</span><span class="p">,</span>
@@ -170,8 +171,8 @@
     <span class="k">class</span><span class="w"> </span><span class="nc">AutoImageProcessor</span><span class="p">:</span> <span class="k">pass</span>
     <span class="k">class</span><span class="w"> </span><span class="nc">CLIPProcessor</span><span class="p">:</span> <span class="k">pass</span>
     <span class="k">class</span><span class="w"> </span><span class="nc">CLIPModel</span><span class="p">:</span> <span class="k">pass</span>
-    <span class="k">class</span><span class="w"> </span><span class="nc">BlipProcessor</span><span class="p">:</span> <span class="k">pass</span>
-    <span class="k">class</span><span class="w"> </span><span class="nc">BlipModel</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">BlipProcessor</span><span class="p">:</span> <span class="k">pass</span> 
+    <span class="k">class</span><span class="w"> </span><span class="nc">BlipModel</span><span class="p">:</span> <span class="k">pass</span>   
     <span class="k">class</span><span class="w"> </span><span class="nc">VideoMAEImageProcessor</span><span class="p">:</span> <span class="k">pass</span> 
     <span class="k">class</span><span class="w"> </span><span class="nc">VideoMAEModel</span><span class="p">:</span> <span class="k">pass</span>
     <span class="k">class</span><span class="w"> </span><span class="nc">XCLIPProcessor</span><span class="p">:</span> <span class="k">pass</span>
@@ -236,7 +237,7 @@
     <span class="s2">&quot;vit_base_patch16_224&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">768</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;timm&quot;</span><span class="p">,</span> <span class="s2">&quot;timm_name&quot;</span><span class="p">:</span> <span class="s2">&quot;vit_base_patch16_224.mae&quot;</span><span class="p">},</span> 
     <span class="s2">&quot;dinov2_base&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">768</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;transformers&quot;</span><span class="p">,</span> <span class="s2">&quot;hf_name&quot;</span><span class="p">:</span> <span class="s2">&quot;facebook/dinov2-base&quot;</span><span class="p">},</span>
 
-    <span class="c1"># --- Video Models (Refactored - MViT removed) ---</span>
+    <span class="c1"># --- Video Models (Refactored - MViT and PTV models removed) ---</span>
     <span class="c1"># torchvision models</span>
     <span class="s2">&quot;r2plus1d_18&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;video&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;torchvision&quot;</span><span class="p">,</span> <span class="s2">&quot;tv_model_name&quot;</span><span class="p">:</span><span class="s2">&quot;r2plus1d_18&quot;</span><span class="p">,</span> <span class="s2">&quot;clip_len&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;frame_rate&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">112</span><span class="p">},</span> 
     <span class="s2">&quot;video_swin_t&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;video&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">768</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;torchvision&quot;</span><span class="p">,</span> <span class="s2">&quot;tv_model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;swin3d_t&quot;</span><span class="p">,</span> <span class="s2">&quot;clip_len&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">},</span> 
@@ -278,7 +279,6 @@
 <div class="viewcode-block" id="DLFeatExtractor">
 <a class="viewcode-back" href="../index.html#DLFeat.DLFeatExtractor">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DLFeatExtractor</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
-    <span class="c1"># ... (Constructor, get_feature_dimension, get_model_config same as v0.4.8) ...</span>
 <div class="viewcode-block" id="DLFeatExtractor.__init__">
 <a class="viewcode-back" href="../index.html#DLFeat.DLFeatExtractor.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">):</span>
@@ -331,7 +331,6 @@
 
     
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_image_model_torchvision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name_tv</span><span class="p">):</span>
-        <span class="c1"># ... (same as v0.4.8)</span>
         <span class="n">model_fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">tv_models</span><span class="p">,</span> <span class="n">model_name_tv</span><span class="p">)</span>
         
         <span class="n">weights_enum_name_to_try</span> <span class="o">=</span> <span class="kc">None</span>
@@ -405,7 +404,6 @@
             <span class="k">pass</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_image_model_timm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timm_model_name</span><span class="p">):</span>
-        <span class="c1"># ... (same as v0.4.8)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">timm</span><span class="p">,</span> <span class="s1">&#39;create_model&#39;</span><span class="p">):</span> 
              <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;TIMM library is not installed. Please install it: pip install timm&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">timm</span><span class="o">.</span><span class="n">create_model</span><span class="p">(</span><span class="n">timm_model_name</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -416,7 +414,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;input_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_config</span><span class="p">[</span><span class="s1">&#39;input_size&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_image_model_dinov2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># ... (same as v0.4.8)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">Dinov2Model</span><span class="p">,</span> <span class="s1">&#39;from_pretrained&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">AutoImageProcessor</span><span class="p">,</span> <span class="s1">&#39;from_pretrained&#39;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
                 <span class="s2">&quot;Transformers components (Dinov2Model or AutoImageProcessor) not available or are dummy classes. &quot;</span>
@@ -428,7 +425,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># ... (same as v0.4.8, with MViT removed from Transformers video logic)</span>
         <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">video_frame_transform</span> <span class="o">=</span> <span class="kc">None</span> 
 
@@ -460,7 +456,7 @@
             <span class="k">elif</span> <span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;transformers&quot;</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">AutoTokenizer</span><span class="p">,</span> <span class="s1">&#39;from_pretrained&#39;</span><span class="p">):</span> 
                     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;Transformers (AutoTokenizer) dummy class detected or not installed.&quot;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;hf_name&quot;</span><span class="p">],</span> <span class="n">use_fast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># use_fast=True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;hf_name&quot;</span><span class="p">],</span> <span class="n">use_fast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">AutoModel</span><span class="p">,</span> <span class="s1">&#39;from_pretrained&#39;</span><span class="p">):</span>
                      <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;Transformers (AutoModel) dummy class detected or not installed.&quot;</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;hf_name&quot;</span><span class="p">])</span>
@@ -812,19 +808,10 @@
                 <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span> 
                 
                 <span class="c1"># Corrected XCLIP feature extraction:</span>
-                <span class="c1"># Directly use the documented final embeddings from XCLIPModelOutput</span>
-                <span class="c1"># These should be (batch_size, output_dim)</span>
+                <span class="c1"># outputs.video_embeds and outputs.text_embeds are the final (batch_size, output_dim) tensors</span>
                 <span class="n">video_f</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">video_embeds</span>
                 <span class="n">text_f</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">text_embeds</span>
                 
-                <span class="c1"># If by any chance they are still 3D (e.g., (batch, seq_len, dim)), reduce them.</span>
-                <span class="c1"># This is a safeguard based on the previous error, though ideally not needed if docs are accurate.</span>
-                <span class="k">if</span> <span class="n">video_f</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">video_f</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_tuples</span><span class="p">):</span> 
-                    <span class="n">video_f</span> <span class="o">=</span> <span class="n">video_f</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                
-                <span class="k">if</span> <span class="n">text_f</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">text_f</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_tuples</span><span class="p">):</span> 
-                    <span class="n">text_f</span> <span class="o">=</span> <span class="n">text_f</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="c1"># Take CLS token embedding</span>
-
                 <span class="n">vid_feats_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">video_f</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
                 <span class="n">txt_feats_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text_f</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>   
 

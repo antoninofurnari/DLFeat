@@ -45,7 +45,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started with DLFeat</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#basic-usage">Basic Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#import-dlfeat-components">1. Import DLFeat Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#image-feature-extraction">2. Image Feature Extraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#text-feature-extraction">3. Text Feature Extraction</a></li>
@@ -88,17 +89,21 @@
 </section>
 <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
-<p>First, ensure you have DLFeat.py in your project directory or installed as a package. Then, you need to install its core dependencies.</p>
+<p>First, install core dependencies:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">Pillow</span> <span class="n">numpy</span> <span class="n">scipy</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="n">transformers</span> <span class="n">sentence</span><span class="o">-</span><span class="n">transformers</span> <span class="n">timm</span> <span class="n">requests</span>
 </pre></div>
 </div>
 <p>For the best experience and access to all models, it’s recommended to keep these libraries, especially transformers and torchvision, up-to-date:</p>
-<div class="highlight-pip notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="n">transformers</span> <span class="n">sentence</span><span class="o">-</span><span class="n">transformers</span> <span class="n">timm</span> <span class="n">requests</span>
 </pre></div>
 </div>
-<p>Basic Usage
-Here’s how to use DLFeatExtractor for different types of data:</p>
+<p>Then install the package with:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/antoninofurnari/dlfeat.git</span></code></p>
+</section>
+<section id="basic-usage">
+<h1>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h1>
+<p>Here’s how to use DLFeatExtractor for different types of data:</p>
 <section id="import-dlfeat-components">
 <h2>1. Import DLFeat Components<a class="headerlink" href="#import-dlfeat-components" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">DLFeat</span><span class="w"> </span><span class="kn">import</span> <span class="n">DLFeatExtractor</span><span class="p">,</span> <span class="n">list_available_models</span>
