@@ -1,25 +1,28 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = [
+    "setuptools>=61.0",
+    "wheel"
+]
 build-backend = "setuptools.build_meta"
-backend-path = ["."]
+# backend-path = ["."] # <-- This line has been removed/commented out
 
 [project]
 name = "dlfeat"
-version = "0.5.0" 
+version = "0.6.0" # Ensure this matches __version__ in your library
 description = "A Python library for easy and modular deep learning feature extraction from various data modalities."
 readme = "README.md"
 requires-python = ">=3.8"
-license = { file = "LICENSE" }
+license = {file = "LICENSE"}
 keywords = ["feature extraction", "deep learning", "pytorch", "image", "video", "audio", "text", "multimodal", "computer vision", "nlp"]
 authors = [
-  { name = "Antonino Furnari", email = "antonino.furnari@unict.it" } 
+  { name = "Antonino Furnari", email = "antonino.furnari@unict.it" }
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "Intended Audience :: Education",
-    "License :: OSI Approved :: MIT License", # Or your chosen license
+    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -31,7 +34,6 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
-# Dependencies DLFeat needs to run
 dependencies = [
     "torch>=1.9.0",
     "torchvision>=0.10.0",
@@ -40,14 +42,14 @@ dependencies = [
     "Pillow>=8.0.0",
     "numpy>=1.19.0",
     "scipy>=1.5.0",
-    "transformers>=4.20.0", # Ensure a recent enough version for all models
+    "transformers>=4.20.0", 
     "sentence-transformers>=2.0.0",
     "timm>=0.4.12",
-    "requests>=2.25.0" 
+    "requests>=2.25.0"
 ]
 
 [project.urls]
 Homepage = "https://github.com/antoninofurnari/dlfeat"
-Documentation = "https://antoninofurnari.github.io/dlfeat/" # Update if you set up GitHub Pages
+Documentation = "https://antoninofurnari.github.io/dlfeat/" 
 Repository = "https://github.com/antoninofurnari/dlfeat"
 "Bug Tracker" = "https://github.com/antoninofurnari/dlfeat/issues"
