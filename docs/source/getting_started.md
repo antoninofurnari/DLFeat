@@ -5,7 +5,7 @@ This guide will help you quickly get started with DLFeat to extract features fro
 First, install core dependencies:
 
 ```
-pip install torch torchvision torchaudio scikit-learn Pillow numpy scipy
+pip install torch torchvision torchaudio scikit-learn Pillow numpy scipy av
 pip install transformers sentence-transformers timm requests
 ```
 
@@ -14,6 +14,8 @@ For the best experience and access to all models, it's recommended to keep these
 ```
 pip install --upgrade torch torchvision torchaudio transformers sentence-transformers timm requests
 ```
+
+Note that dlfeat is modular, so if some of those dependencies are not installed, it will work with reduced functionalities.
 
 Then install the package with:
 
