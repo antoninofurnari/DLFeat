@@ -90,7 +90,7 @@
 <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
 <p>First, install core dependencies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">Pillow</span> <span class="n">numpy</span> <span class="n">scipy</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">Pillow</span> <span class="n">numpy</span> <span class="n">scipy</span> <span class="n">av</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="n">transformers</span> <span class="n">sentence</span><span class="o">-</span><span class="n">transformers</span> <span class="n">timm</span> <span class="n">requests</span>
 </pre></div>
 </div>
@@ -98,6 +98,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="n">transformers</span> <span class="n">sentence</span><span class="o">-</span><span class="n">transformers</span> <span class="n">timm</span> <span class="n">requests</span>
 </pre></div>
 </div>
+<p>Note that dlfeat is modular, so if some of those dependencies are not installed, it will work with reduced functionalities.</p>
 <p>Then install the package with:</p>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/antoninofurnari/dlfeat.git</span></code></p>
 </section>
