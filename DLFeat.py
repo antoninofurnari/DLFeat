@@ -1,15 +1,12 @@
 # DLFeat: Deep Learning Feature Extraction Library
 # Inspired by VLFeat for ease of use and modularity in the modern deep learning era.
-# Version: 0.4.8
-# Author: Gemini
+# Version: 0.4.9 
+# Author: Antonino Furnari
 # Date: 2025-06-01
 
 """
 DLFeat: Deep Learning Feature Extraction Library
 ================================================
-
-.. mdinclude:: ../../README.md 
-   (This is a placeholder for Sphinx to include your main README if you structure your docs this way)
 
 **DLFeat** is a Python library designed for easy and modular feature extraction 
 from various data modalities including images, videos, audio, and text. 
@@ -471,7 +468,7 @@ can vary significantly based on hardware, batch size, input resolution, and spec
 
 """
 
-__version__ = "0.4.8" 
+__version__ = "0.4.9" 
 
 import torch
 import torchvision 
@@ -516,7 +513,7 @@ try:
     from transformers import (
         AutoProcessor, AutoModel, AutoTokenizer, Wav2Vec2FeatureExtractor,
         AutoImageProcessor, 
-        CLIPProcessor, CLIPModel, BlipProcessor, BlipModel, # Assuming Blip might be added back
+        CLIPProcessor, CLIPModel, BlipProcessor, BlipModel,
         VideoMAEImageProcessor, VideoMAEModel, 
         XCLIPProcessor, XCLIPModel,
         ASTFeatureExtractor,
@@ -535,8 +532,8 @@ except ImportError:
     class AutoImageProcessor: pass
     class CLIPProcessor: pass
     class CLIPModel: pass
-    class BlipProcessor: pass # Keep dummy in case Blip is re-added
-    class BlipModel: pass   # Keep dummy in case Blip is re-added
+    class BlipProcessor: pass
+    class BlipModel: pass
     class VideoMAEImageProcessor: pass 
     class VideoMAEModel: pass
     class XCLIPProcessor: pass
@@ -601,11 +598,14 @@ MODEL_CONFIGS = {
     "vit_base_patch16_224": {"task": "image", "dim": 768, "input_size": 224, "source": "timm", "timm_name": "vit_base_patch16_224.mae"}, 
     "dinov2_base": {"task": "image", "dim": 768, "input_size": 224, "source": "transformers", "hf_name": "facebook/dinov2-base"},
 
-    # --- Video Models (Refactored - MViT, SlowFast, X3D from PTV removed) ---
+    # --- Video Models (Refactored - MViT removed) ---
+    # torchvision models
     "r2plus1d_18": {"task": "video", "dim": 512, "source": "torchvision", "tv_model_name":"r2plus1d_18", "clip_len": 16, "frame_rate": 15, "input_size": 112}, 
     "video_swin_t": {"task": "video", "dim": 768, "source": "torchvision", "tv_model_name": "swin3d_t", "clip_len": 32, "input_size": 224}, 
     "video_swin_s": {"task": "video", "dim": 768, "source": "torchvision", "tv_model_name": "swin3d_s", "clip_len": 32, "input_size": 224}, 
     "video_swin_b": {"task": "video", "dim": 1024, "source": "torchvision", "tv_model_name": "swin3d_b", "clip_len": 32, "input_size": 224},
+    
+    # transformers models
     "videomae_base_k400_pt": {"task": "video", "dim": 768, "source": "transformers", "hf_name": "MCG-NJU/videomae-base-finetuned-kinetics", "num_frames": 16, "input_size": 224},
     
     # --- Audio Models ---
@@ -621,7 +621,18 @@ MODEL_CONFIGS = {
     "xclip_base_patch16": {"task": "multimodal_video_text", "dim": 512, "source": "transformers", "hf_name": "microsoft/xclip-base-patch16", "num_frames": 8}
 }
 
-# DEFAULT_MODELS_TO_TEST removed, run_self_tests will default to 'all'
+DEFAULT_MODELS_TO_TEST = [ 
+    "resnet18", "efficientnet_b0", "mobilenet_v2", "vit_tiny_patch16_224", "dinov2_base",
+    "r2plus1d_18", "videomae_base_k400_pt", "video_swin_t",
+    "wav2vec2_base", "sentence-bert", 
+    "clip_vit_b32", "xclip_base_patch16"
+]
+
+
+def list_available_models(task_type=None):
+    if task_type:
+        return [name for name, config in MODEL_CONFIGS.items() if config["task"] == task_type]
+    return list(MODEL_CONFIGS.keys())
 
 class DLFeatExtractor(BaseEstimator, TransformerMixin):
     def __init__(self, model_name, task_type=None, device="auto"):
@@ -1142,19 +1153,20 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
                 inputs = {k: v.to(self.device) for k, v in inputs.items()}
                 outputs = self.model(**inputs) 
                 
-                # Process XCLIP outputs, assuming they might be 3D and need reduction
+                # Corrected XCLIP feature extraction:
+                # Directly use the documented final embeddings from XCLIPModelOutput
+                # These should be (batch_size, output_dim)
                 video_f = outputs.video_embeds
-                if video_f.ndim == 3 and video_f.shape[0] == len(batch_tuples): # (batch, seq, dim)
-                    video_f = video_f.mean(dim=1)
-                elif video_f.ndim != 2 or video_f.shape[0] != len(batch_tuples): # Not (batch, dim)
-                    raise ValueError(f"XCLIP video_embeds has unexpected shape: {video_f.shape}")
-                
                 text_f = outputs.text_embeds
-                if text_f.ndim == 3 and text_f.shape[0] == len(batch_tuples): # (batch, seq, dim) -> e.g. (2, 2, 512) from error
-                    text_f = text_f[:, 0, :] # Take CLS-like token
-                elif text_f.ndim != 2 or text_f.shape[0] != len(batch_tuples):
-                    raise ValueError(f"XCLIP text_embeds has unexpected shape: {text_f.shape}")
                 
+                # If by any chance they are still 3D (e.g., (batch, seq_len, dim)), reduce them.
+                # This is a safeguard based on the previous error, though ideally not needed if docs are accurate.
+                if video_f.ndim == 3 and video_f.shape[0] == len(batch_tuples): 
+                    video_f = video_f.mean(dim=1) # Mean pool over video tokens/frames
+                
+                if text_f.ndim == 3 and text_f.shape[0] == len(batch_tuples): 
+                    text_f = text_f[:, 0, :] # Take CLS token embedding
+
                 vid_feats_list.append(video_f.cpu().numpy())
                 txt_feats_list.append(text_f.cpu().numpy())   
 
