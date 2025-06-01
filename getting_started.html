@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting Started with DLFeat &mdash; DLFeat 0.3.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=4621528c"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Model Zoo" href="model_zoo.html" />
+    <link rel="prev" title="Welcome to DLFeat’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DLFeat
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started with DLFeat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#import-dlfeat-components">1. Import DLFeat Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#image-feature-extraction">2. Image Feature Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#text-feature-extraction">3. Text Feature Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#audio-feature-extraction">4. Audio Feature Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#video-feature-extraction">5. Video Feature Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multimodal-image-text-feature-extraction">6. Multimodal (Image-Text) Feature Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="model_zoo.html">Model Zoo</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DLFeat</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Getting Started with DLFeat</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/getting_started.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="getting-started-with-dlfeat">
+<h1>Getting Started with DLFeat<a class="headerlink" href="#getting-started-with-dlfeat" title="Link to this heading"></a></h1>
+<p>This guide will help you quickly get started with DLFeat to extract features from various modalities.</p>
+</section>
+<section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p>First, ensure you have DLFeat.py in your project directory or installed as a package. Then, you need to install its core dependencies.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">Pillow</span> <span class="n">numpy</span> <span class="n">scipy</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">transformers</span> <span class="n">sentence</span><span class="o">-</span><span class="n">transformers</span> <span class="n">timm</span> <span class="n">requests</span>
+</pre></div>
+</div>
+<p>For the best experience and access to all models, it’s recommended to keep these libraries, especially transformers and torchvision, up-to-date:</p>
+<div class="highlight-pip notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>Basic Usage
+Here’s how to use DLFeatExtractor for different types of data:</p>
+<section id="import-dlfeat-components">
+<h2>1. Import DLFeat Components<a class="headerlink" href="#import-dlfeat-components" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">DLFeat</span><span class="w"> </span><span class="kn">import</span> <span class="n">DLFeatExtractor</span><span class="p">,</span> <span class="n">list_available_models</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span> <span class="c1"># For dummy file creation/cleanup in examples</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span> <span class="c1"># For dummy image creation</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np_example</span> <span class="c1"># Renamed to avoid conflict if DLFeat itself uses np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io.wavfile</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">scipy_wav_example</span> <span class="c1"># Renamed</span>
+
+<span class="c1"># You can list available models (optional)</span>
+<span class="c1"># print(&quot;All available models:&quot;, list_available_models())</span>
+<span class="c1"># print(&quot;Image models:&quot;, list_available_models(task_type=&quot;image&quot;))</span>
+</pre></div>
+</div>
+</section>
+<section id="image-feature-extraction">
+<h2>2. Image Feature Extraction<a class="headerlink" href="#image-feature-extraction" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize for an image model</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">img_extractor</span> <span class="o">=</span> <span class="n">DLFeatExtractor</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;resnet18&quot;</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully initialized resnet18 extractor for images.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Create a dummy image for this snippet</span>
+    <span class="n">dummy_img_path_gs</span> <span class="o">=</span> <span class="s2">&quot;temp_dummy_image_gs.png&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">img_gs</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+        <span class="n">d_gs</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">img_gs</span><span class="p">)</span>
+        <span class="n">d_gs</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;Sample Img&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">img_gs</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">dummy_img_path_gs</span><span class="p">)</span>
+        
+        <span class="c1"># DLFeat expects a list of inputs for the transform method</span>
+        <span class="n">image_paths_gs</span> <span class="o">=</span> <span class="p">[</span><span class="n">dummy_img_path_gs</span><span class="p">,</span> <span class="n">dummy_img_path_gs</span><span class="p">]</span> 
+        
+        <span class="c1"># Fit (no-op for pre-trained models) and transform</span>
+        <span class="n">img_extractor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">image_paths_gs</span><span class="p">)</span> 
+        <span class="n">image_features_gs</span> <span class="o">=</span> <span class="n">img_extractor</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">image_paths_gs</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image features shape: </span><span class="si">{</span><span class="n">image_features_gs</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> 
+        <span class="c1"># Example output for resnet18 with 2 images: (2, 512)</span>
+        
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pillow (for ImageDraw) not found, skipping image creation part of snippet.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e_img</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in image feature extraction snippet: </span><span class="si">{</span><span class="n">e_img</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dummy_img_path_gs</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dummy_img_path_gs</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e_init_img</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not initialize image extractor: </span><span class="si">{</span><span class="n">e_init_img</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ensure dependencies for image models are installed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="text-feature-extraction">
+<h2>3. Text Feature Extraction<a class="headerlink" href="#text-feature-extraction" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">text_extractor</span> <span class="o">=</span> <span class="n">DLFeatExtractor</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;sentence-bert&quot;</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully initialized sentence-bert extractor for text.&quot;</span><span class="p">)</span>
+    
+    <span class="n">texts_gs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;This is the first sentence for DLFeat feature extraction.&quot;</span><span class="p">,</span> 
+                <span class="s2">&quot;DLFeat aims to make embeddings easy to obtain.&quot;</span><span class="p">]</span>
+    <span class="n">text_features_gs</span> <span class="o">=</span> <span class="n">text_extractor</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">texts_gs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Text features shape: </span><span class="si">{</span><span class="n">text_features_gs</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> 
+    <span class="c1"># Example output for sentence-bert with 2 sentences: (2, 384)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e_text</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in text feature extraction snippet: </span><span class="si">{</span><span class="n">e_text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ensure dependencies for text models (like sentence-transformers) are installed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="audio-feature-extraction">
+<h2>4. Audio Feature Extraction<a class="headerlink" href="#audio-feature-extraction" title="Link to this heading"></a></h2>
+<p>Requires torchaudio and scipy for creating the dummy audio in this snippet.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Create a dummy audio file for this snippet</span>
+    <span class="n">dummy_audio_path_gs</span> <span class="o">=</span> <span class="s2">&quot;temp_dummy_audio_gs.wav&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sample_rate_gs</span> <span class="o">=</span> <span class="mi">16000</span><span class="p">;</span> <span class="n">duration_gs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">frequency_gs</span> <span class="o">=</span> <span class="mi">440</span>
+        <span class="n">t_gs</span> <span class="o">=</span> <span class="n">np_example</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">duration_gs</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">sample_rate_gs</span> <span class="o">*</span> <span class="n">duration_gs</span><span class="p">),</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">data_gs</span> <span class="o">=</span> <span class="n">np_example</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np_example</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">frequency_gs</span> <span class="o">*</span> <span class="n">t_gs</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+        <span class="n">data_int16_gs</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_gs</span> <span class="o">*</span> <span class="mi">32767</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np_example</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
+        <span class="n">scipy_wav_example</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">dummy_audio_path_gs</span><span class="p">,</span> <span class="n">sample_rate_gs</span><span class="p">,</span> <span class="n">data_int16_gs</span><span class="p">)</span>
+
+        <span class="n">audio_extractor</span> <span class="o">=</span> <span class="n">DLFeatExtractor</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;wav2vec2_base&quot;</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;audio&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully initialized wav2vec2_base extractor for audio.&quot;</span><span class="p">)</span>
+        
+        <span class="n">audio_paths_gs</span> <span class="o">=</span> <span class="p">[</span><span class="n">dummy_audio_path_gs</span><span class="p">,</span> <span class="n">dummy_audio_path_gs</span><span class="p">]</span>
+        <span class="n">audio_features_gs</span> <span class="o">=</span> <span class="n">audio_extractor</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">audio_paths_gs</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Audio features shape: </span><span class="si">{</span><span class="n">audio_features_gs</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> 
+        <span class="c1"># Example output for wav2vec2_base with 2 audio files: (2, 768)</span>
+        
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scipy or Numpy not found, skipping audio creation/processing part of snippet.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e_audio</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in audio feature extraction snippet: </span><span class="si">{</span><span class="n">e_audio</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dummy_audio_path_gs</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dummy_audio_path_gs</span><span class="p">)</span>
+            
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e_init_audio</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not initialize audio extractor: </span><span class="si">{</span><span class="n">e_init_audio</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ensure dependencies for audio models (like transformers, torchaudio) are installed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="video-feature-extraction">
+<h2>5. Video Feature Extraction<a class="headerlink" href="#video-feature-extraction" title="Link to this heading"></a></h2>
+<p>Note: Video processing can be resource-intensive and slow. The example below uses r2plus1d_18. For actual use, replace placeholder paths with paths to your real video files. The self-test function run_self_tests(attempt_real_video_test=True) attempts to download a small sample video if the requests library is installed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">video_extractor</span> <span class="o">=</span> <span class="n">DLFeatExtractor</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;r2plus1d_18&quot;</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;video&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully initialized r2plus1d_18 extractor for video.&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># For actual use, create a list of paths to your video files:</span>
+    <span class="c1"># video_paths = [&quot;path/to/your/video1.mp4&quot;, &quot;path/to/your/video2.avi&quot;]</span>
+    <span class="c1"># video_features = video_extractor.transform(video_paths)</span>
+    <span class="c1"># print(f&quot;Video features shape: {video_features.shape}&quot;)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To test video feature extraction, please provide a list of actual video file paths to the .transform() method.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Example: video_features = video_extractor.transform([&#39;my_video.mp4&#39;])&quot;</span><span class="p">)</span>
+    
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e_video</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not initialize video extractor or run snippet: </span><span class="si">{</span><span class="n">e_video</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ensure dependencies for video models (like torchvision, transformers, and potentially ffmpeg for video reading) are correctly installed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="multimodal-image-text-feature-extraction">
+<h2>6. Multimodal (Image-Text) Feature Extraction<a class="headerlink" href="#multimodal-image-text-feature-extraction" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Create a dummy image for this snippet</span>
+    <span class="n">dummy_img_path_mm_gs</span> <span class="o">=</span> <span class="s2">&quot;temp_dummy_image_mm_gs.png&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">img_mm_gs</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lightcoral&#39;</span><span class="p">)</span>
+        <span class="n">d_mm_gs</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">img_mm_gs</span><span class="p">)</span>
+        <span class="n">d_mm_gs</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;Multimodal&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">img_mm_gs</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">dummy_img_path_mm_gs</span><span class="p">)</span>
+
+        <span class="n">clip_extractor</span> <span class="o">=</span> <span class="n">DLFeatExtractor</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;clip_vit_b32&quot;</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;multimodal_image_text&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully initialized clip_vit_b32 extractor for multimodal image-text.&quot;</span><span class="p">)</span>
+        
+        <span class="n">multimodal_data_gs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">dummy_img_path_mm_gs</span><span class="p">,</span> <span class="s2">&quot;A light coral square with text.&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">dummy_img_path_mm_gs</span><span class="p">,</span> <span class="s2">&quot;Another description of the same image example.&quot;</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">multimodal_features_gs</span> <span class="o">=</span> <span class="n">clip_extractor</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">multimodal_data_gs</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CLIP Image features shape: </span><span class="si">{</span><span class="n">multimodal_features_gs</span><span class="p">[</span><span class="s1">&#39;image_features&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> 
+        <span class="c1"># Example output for clip_vit_b32 with 2 image-text pairs: (2, 512)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CLIP Text features shape: </span><span class="si">{</span><span class="n">multimodal_features_gs</span><span class="p">[</span><span class="s1">&#39;text_features&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>   
+        <span class="c1"># Example output: (2, 512)</span>
+        
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pillow (for ImageDraw) not found, skipping image creation part of multimodal snippet.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e_mm_imgtxt</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in multimodal (image-text) snippet: </span><span class="si">{</span><span class="n">e_mm_imgtxt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dummy_img_path_mm_gs</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dummy_img_path_mm_gs</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e_init_mm_imgtxt</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not initialize multimodal (image-text) extractor: </span><span class="si">{</span><span class="n">e_init_mm_imgtxt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ensure dependencies for multimodal models (like transformers) are installed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>Explore the Model Zoo in the full documentation for a list of all available models, their capabilities, and source libraries.</p>
+<p>Refer to the API Reference for detailed information on DLFeatExtractor methods and other utilities.</p>
+<p>Run the self-tests using from DLFeat import run_self_tests; run_self_tests() to check model availability in your environment.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to DLFeat’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="model_zoo.html" class="btn btn-neutral float-right" title="Model Zoo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Your Name/Gemini.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

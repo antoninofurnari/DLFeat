@@ -1,0 +1,420 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Model Zoo &mdash; DLFeat 0.3.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=4621528c"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Getting Started with DLFeat" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DLFeat
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started with DLFeat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html#installation">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Model Zoo</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DLFeat</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Model Zoo</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/model_zoo.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="model-zoo">
+<h1>Model Zoo<a class="headerlink" href="#model-zoo" title="Link to this heading"></a></h1>
+<p>The following table provides an overview of the models available in DLFeat.
+Performance metrics (Acc., mAP, R&#64;1, etc.) are typically reported on standard benchmarks
+(e.g., ImageNet, Kinetics-400, GLUE, MSCOCO, MSR-VTT). FLOPS and Speed are indicative and
+can vary significantly based on hardware, batch size, input resolution, and specific implementation.
+“SSL” denotes Self-Supervised Learning. “Multimodal” models are trained on multiple data types.</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">DLFeat Model Zoo</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 10.9%" />
+<col style="width: 25.5%" />
+<col style="width: 7.3%" />
+<col style="width: 18.2%" />
+<col style="width: 7.3%" />
+<col style="width: 9.1%" />
+<col style="width: 10.9%" />
+<col style="width: 10.9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Modality</p></th>
+<th class="head"><p>Model Name (Identifier)</p></th>
+<th class="head"><p>Feat. Dim</p></th>
+<th class="head"><p>Performance (Benchmark)</p></th>
+<th class="head"><p>FLOPS (G)</p></th>
+<th class="head"><p>Speed</p></th>
+<th class="head"><p>Supervision</p></th>
+<th class="head"><p>Source</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Image</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Image</p></td>
+<td><p><cite>resnet18</cite></p></td>
+<td><p>512</p></td>
+<td><p>69.76% (ImageNet Top-1)</p></td>
+<td><p>1.8</p></td>
+<td><p>Fast</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision</p></td>
+</tr>
+<tr class="row-even"><td><p>Image</p></td>
+<td><p><cite>resnet34</cite></p></td>
+<td><p>512</p></td>
+<td><p>73.30% (ImageNet Top-1)</p></td>
+<td><p>3.6</p></td>
+<td><p>Fast</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision</p></td>
+</tr>
+<tr class="row-odd"><td><p>Image</p></td>
+<td><p><cite>resnet50</cite></p></td>
+<td><p>2048</p></td>
+<td><p>80.86% (ImageNet Top-1, tv)</p></td>
+<td><p>4.1</p></td>
+<td><p>Medium</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision_or_timm</p></td>
+</tr>
+<tr class="row-even"><td><p>Image</p></td>
+<td><p><cite>resnet101</cite></p></td>
+<td><p>2048</p></td>
+<td><p>81.88% (ImageNet Top-1, tv)</p></td>
+<td><p>7.8</p></td>
+<td><p>Medium</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision_or_timm</p></td>
+</tr>
+<tr class="row-odd"><td><p>Image</p></td>
+<td><p><cite>resnet152</cite></p></td>
+<td><p>2048</p></td>
+<td><p>82.28% (ImageNet Top-1, tv)</p></td>
+<td><p>11.5</p></td>
+<td><p>Slower</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision_or_timm</p></td>
+</tr>
+<tr class="row-even"><td><p>Image</p></td>
+<td><p><cite>efficientnet_b0</cite></p></td>
+<td><p>1280</p></td>
+<td><p>77.69% (ImageNet Top-1)</p></td>
+<td><p>0.39</p></td>
+<td><p>Very Fast</p></td>
+<td><p>Supervised</p></td>
+<td><p>timm</p></td>
+</tr>
+<tr class="row-odd"><td><p>Image</p></td>
+<td><p><cite>efficientnet_b2</cite></p></td>
+<td><p>1408</p></td>
+<td><p>80.51% (ImageNet Top-1)</p></td>
+<td><p>1.0</p></td>
+<td><p>Fast</p></td>
+<td><p>Supervised</p></td>
+<td><p>timm</p></td>
+</tr>
+<tr class="row-even"><td><p>Image</p></td>
+<td><p><cite>efficientnet_b4</cite></p></td>
+<td><p>1792</p></td>
+<td><p>83.37% (ImageNet Top-1)</p></td>
+<td><p>4.4</p></td>
+<td><p>Medium</p></td>
+<td><p>Supervised</p></td>
+<td><p>timm</p></td>
+</tr>
+<tr class="row-odd"><td><p>Image</p></td>
+<td><p><cite>mobilenet_v2</cite></p></td>
+<td><p>1280</p></td>
+<td><p>71.88% (ImageNet Top-1)</p></td>
+<td><p>0.3</p></td>
+<td><p>Very Fast</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision</p></td>
+</tr>
+<tr class="row-even"><td><p>Image</p></td>
+<td><p><cite>mobilenet_v3_small</cite></p></td>
+<td><p>576</p></td>
+<td><p>67.67% (ImageNet Top-1)</p></td>
+<td><p>0.06</p></td>
+<td><p>Very Fast</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision</p></td>
+</tr>
+<tr class="row-odd"><td><p>Image</p></td>
+<td><p><cite>mobilenet_v3_large</cite></p></td>
+<td><p>960</p></td>
+<td><p>74.04% (ImageNet Top-1)</p></td>
+<td><p>0.22</p></td>
+<td><p>Very Fast</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision</p></td>
+</tr>
+<tr class="row-even"><td><p>Image</p></td>
+<td><p><cite>vit_tiny_patch16_224</cite></p></td>
+<td><p>192</p></td>
+<td><p>75.4% (ImageNet Top-1, DeiT)</p></td>
+<td><p>1.3</p></td>
+<td><p>Fast</p></td>
+<td><p>Supervised (DeiT)</p></td>
+<td><p>timm</p></td>
+</tr>
+<tr class="row-odd"><td><p>Image</p></td>
+<td><p><cite>vit_small_patch16_224</cite></p></td>
+<td><p>384</p></td>
+<td><p>81.2% (ImageNet Top-1, DeiT)</p></td>
+<td><p>4.6</p></td>
+<td><p>Medium</p></td>
+<td><p>Supervised (DeiT)</p></td>
+<td><p>timm</p></td>
+</tr>
+<tr class="row-even"><td><p>Image</p></td>
+<td><p><cite>vit_base_patch16_224</cite></p></td>
+<td><p>768</p></td>
+<td><p>85.2% (ImageNet Top-1, MAE FT)</p></td>
+<td><p>17.6</p></td>
+<td><p>Medium</p></td>
+<td><p>SSL (MAE)</p></td>
+<td><p>timm</p></td>
+</tr>
+<tr class="row-odd"><td><p>Image</p></td>
+<td><p><cite>dinov2_base</cite></p></td>
+<td><p>768</p></td>
+<td><p>82.8% (ImageNet k-NN, ViT-B/14)</p></td>
+<td><p>~33 (ViT-B/14)</p></td>
+<td><p>Medium</p></td>
+<td><p>SSL (DINOv2)</p></td>
+<td><p>Transformers</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Video</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Video</p></td>
+<td><p><cite>r2plus1d_18</cite></p></td>
+<td><p>512</p></td>
+<td><p>65.2% (K400 Top-1)</p></td>
+<td><p>31.6 (16f)</p></td>
+<td><p>Medium</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision</p></td>
+</tr>
+<tr class="row-even"><td><p>Video</p></td>
+<td><p><cite>video_swin_t</cite></p></td>
+<td><p>768</p></td>
+<td><p>78.8% (K400 Top-1)</p></td>
+<td><p>48 (32x224^2)</p></td>
+<td><p>Medium</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision</p></td>
+</tr>
+<tr class="row-odd"><td><p>Video</p></td>
+<td><p><cite>video_swin_s</cite></p></td>
+<td><p>768</p></td>
+<td><p>81.6% (K400 Top-1)</p></td>
+<td><p>92 (32x224^2)</p></td>
+<td><p>Slower</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision</p></td>
+</tr>
+<tr class="row-even"><td><p>Video</p></td>
+<td><p><cite>video_swin_b</cite></p></td>
+<td><p>1024</p></td>
+<td><p>82.7% (K400 Top-1)</p></td>
+<td><p>199 (32x224^2)</p></td>
+<td><p>Slower</p></td>
+<td><p>Supervised</p></td>
+<td><p>torchvision</p></td>
+</tr>
+<tr class="row-odd"><td><p>Video</p></td>
+<td><p><cite>videomae_base_k400_pt</cite></p></td>
+<td><p>768</p></td>
+<td><p>81.2% (K400 Top-1, ViT-B)</p></td>
+<td><p>~168 (16x224^2)</p></td>
+<td><p>Medium</p></td>
+<td><p>Supervised (PT+FT)</p></td>
+<td><p>transformers</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Audio</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Audio</p></td>
+<td><p><cite>wav2vec2_base</cite></p></td>
+<td><p>768</p></td>
+<td><p>~6.9% (LibriSpeech WER, no LM)</p></td>
+<td><p>94.5M Params</p></td>
+<td><p>Fast</p></td>
+<td><p>SSL (Wav2Vec2)</p></td>
+<td><p>Transformers</p></td>
+</tr>
+<tr class="row-even"><td><p>Audio</p></td>
+<td><p><cite>ast_vit_base_patch16_224</cite></p></td>
+<td><p>768</p></td>
+<td><p>0.459 (AudioSet mAP)</p></td>
+<td><p>87M Params</p></td>
+<td><p>Medium</p></td>
+<td><p>Supervised</p></td>
+<td><p>Transformers</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Text</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Text</p></td>
+<td><p><cite>sentence-bert</cite></p></td>
+<td><p>384</p></td>
+<td><p>85.3 (STS-B Spearman)</p></td>
+<td><p>N/A</p></td>
+<td><p>Very Fast</p></td>
+<td><p>SSL (SBERT)</p></td>
+<td><p>sentence-transformers</p></td>
+</tr>
+<tr class="row-odd"><td><p>Text</p></td>
+<td><p><cite>bert_base_uncased</cite></p></td>
+<td><p>768</p></td>
+<td><p>79.6 (GLUE Avg.)</p></td>
+<td><p>110M Params</p></td>
+<td><p>Medium</p></td>
+<td><p>SSL (BERT)</p></td>
+<td><p>Transformers</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Multimodal</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Image-Text</p></td>
+<td><p><cite>clip_vit_b32</cite></p></td>
+<td><p>512</p></td>
+<td><p>63.3% (ImageNet zero-shot)</p></td>
+<td><p>N/A</p></td>
+<td><p>Fast</p></td>
+<td><p>Multimodal SSL</p></td>
+<td><p>Transformers</p></td>
+</tr>
+<tr class="row-even"><td><p>Video-Text</p></td>
+<td><p><cite>xclip_base_patch16</cite></p></td>
+<td><p>512</p></td>
+<td><p>46.7% (MSR-VTT R&#64;1)</p></td>
+<td><p>N/A</p></td>
+<td><p>Medium</p></td>
+<td><p>Multimodal SSL</p></td>
+<td><p>Transformers</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>Note on FLOPS/Speed: These are highly approximate and depend on input size, hardware, and batching. “Fast” might mean &gt;100 FPS for images on a modern GPU. “N/A” indicates data not readily found or highly variable. For parameter counts, “M Params” refers to millions of parameters.</em></p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started with DLFeat" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Your Name/Gemini.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

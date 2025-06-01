@@ -16,9 +16,10 @@ Welcome to DLFeat's documentation!
    # For example, if you create a file 'api.rst' in this 'source' directory:
    # api 
 
+   getting_started 
+   model_zoo
+   #api_reference  # Assuming you might create a separate page for detailed API
+   # Add other .rst or .md files here
+
 Indices and tables
 ==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
