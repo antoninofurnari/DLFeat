@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dlfeat"
-version = "0.5.0" 
+version = "0.6.0" # Ensure this matches __version__ in your library
 description = "A Python library for easy and modular deep learning feature extraction from various data modalities."
 readme = "README.md"
 requires-python = ">=3.8"
@@ -50,7 +50,8 @@ image = [
 ]
 # For video models (torchvision also provides video reading capabilities)
 video = [
-    "torchvision>=0.10.0" 
+    "torchvision>=0.10.0",
+    "av>=10.0.0"           # Added PyAV for video decoding
 ]
 # For audio models/processing
 audio = [
@@ -72,7 +73,7 @@ test_utils = [
 # Group for all optional features
 all = [
     "dlfeat[image]",
-    "dlfeat[video]", # torchvision is already in image, but keeping for clarity
+    "dlfeat[video]", 
     "dlfeat[audio]",
     "dlfeat[transformers]",
     "dlfeat[sentence_transformers]",
