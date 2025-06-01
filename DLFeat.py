@@ -16,6 +16,8 @@ The goal is to provide a "black box" tool suitable for educational and research 
 allowing users to quickly extract meaningful features for data analysis tasks 
 without needing to delve into the complexities of each model's architecture or training.
 
+The library has been coded using Gemini 2.5 Pro.
+
 This version is compatible with the scikit-learn transformer API, includes an expanded
 model zoo, and a callable self-test function with a summary report.
 
