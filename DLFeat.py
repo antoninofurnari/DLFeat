@@ -78,7 +78,7 @@ try:
     from transformers import (
         AutoProcessor, AutoModel, AutoTokenizer, Wav2Vec2FeatureExtractor,
         AutoImageProcessor, 
-        CLIPProcessor, CLIPModel, BlipProcessor, BlipModel,
+        CLIPProcessor, CLIPModel, BlipProcessor, BlipModel, # Kept Blip for potential future re-add
         VideoMAEImageProcessor, VideoMAEModel, 
         XCLIPProcessor, XCLIPModel,
         ASTFeatureExtractor,
@@ -97,8 +97,8 @@ except ImportError:
     class AutoImageProcessor: pass
     class CLIPProcessor: pass
     class CLIPModel: pass
-    class BlipProcessor: pass
-    class BlipModel: pass
+    class BlipProcessor: pass 
+    class BlipModel: pass   
     class VideoMAEImageProcessor: pass 
     class VideoMAEModel: pass
     class XCLIPProcessor: pass
@@ -163,7 +163,7 @@ MODEL_CONFIGS = {
     "vit_base_patch16_224": {"task": "image", "dim": 768, "input_size": 224, "source": "timm", "timm_name": "vit_base_patch16_224.mae"}, 
     "dinov2_base": {"task": "image", "dim": 768, "input_size": 224, "source": "transformers", "hf_name": "facebook/dinov2-base"},
 
-    # --- Video Models (Refactored - MViT removed) ---
+    # --- Video Models (Refactored - MViT and PTV models removed) ---
     # torchvision models
     "r2plus1d_18": {"task": "video", "dim": 512, "source": "torchvision", "tv_model_name":"r2plus1d_18", "clip_len": 16, "frame_rate": 15, "input_size": 112}, 
     "video_swin_t": {"task": "video", "dim": 768, "source": "torchvision", "tv_model_name": "swin3d_t", "clip_len": 32, "input_size": 224}, 
@@ -200,7 +200,6 @@ def list_available_models(task_type=None):
     return list(MODEL_CONFIGS.keys())
 
 class DLFeatExtractor(BaseEstimator, TransformerMixin):
-    # ... (Constructor, get_feature_dimension, get_model_config same as v0.4.8) ...
     def __init__(self, model_name, task_type=None, device="auto"):
         if model_name not in MODEL_CONFIGS:
             raise ValueError(
@@ -244,7 +243,6 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
         return self.config.copy()
     
     def _load_image_model_torchvision(self, model_name_tv):
-        # ... (same as v0.4.8)
         model_fn = getattr(tv_models, model_name_tv)
         
         weights_enum_name_to_try = None
@@ -318,7 +316,6 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
             pass
     
     def _load_image_model_timm(self, timm_model_name):
-        # ... (same as v0.4.8)
         if not hasattr(timm, 'create_model'): 
              raise ImportError("TIMM library is not installed. Please install it: pip install timm")
         self.model = timm.create_model(timm_model_name, pretrained=True, num_classes=0)
@@ -329,7 +326,6 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
             self.config["input_size"] = data_config['input_size'][1] 
 
     def _load_image_model_dinov2(self):
-        # ... (same as v0.4.8)
         if not hasattr(Dinov2Model, 'from_pretrained') or not hasattr(AutoImageProcessor, 'from_pretrained'):
             raise ImportError(
                 "Transformers components (Dinov2Model or AutoImageProcessor) not available or are dummy classes. "
@@ -341,7 +337,6 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
         self.model.eval().to(self.device)
 
     def _load_model(self):
-        # ... (same as v0.4.8, with MViT removed from Transformers video logic)
         source = self.config["source"]
         self.video_frame_transform = None 
 
@@ -373,7 +368,7 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
             elif source == "transformers":
                 if not hasattr(AutoTokenizer, 'from_pretrained'): 
                     raise ImportError("Transformers (AutoTokenizer) dummy class detected or not installed.")
-                self.tokenizer = AutoTokenizer.from_pretrained(self.config["hf_name"], use_fast=True) # use_fast=True
+                self.tokenizer = AutoTokenizer.from_pretrained(self.config["hf_name"], use_fast=True)
                 if not hasattr(AutoModel, 'from_pretrained'):
                      raise ImportError("Transformers (AutoModel) dummy class detected or not installed.")
                 self.model = AutoModel.from_pretrained(self.config["hf_name"])
@@ -723,19 +718,10 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
                 outputs = self.model(**inputs) 
                 
                 # Corrected XCLIP feature extraction:
-                # Directly use the documented final embeddings from XCLIPModelOutput
-                # These should be (batch_size, output_dim)
+                # outputs.video_embeds and outputs.text_embeds are the final (batch_size, output_dim) tensors
                 video_f = outputs.video_embeds
                 text_f = outputs.text_embeds
                 
-                # If by any chance they are still 3D (e.g., (batch, seq_len, dim)), reduce them.
-                # This is a safeguard based on the previous error, though ideally not needed if docs are accurate.
-                if video_f.ndim == 3 and video_f.shape[0] == len(batch_tuples): 
-                    video_f = video_f.mean(dim=1)
-                
-                if text_f.ndim == 3 and text_f.shape[0] == len(batch_tuples): 
-                    text_f = text_f[:, 0, :] # Take CLS token embedding
-
                 vid_feats_list.append(video_f.cpu().numpy())
                 txt_feats_list.append(text_f.cpu().numpy())   
 

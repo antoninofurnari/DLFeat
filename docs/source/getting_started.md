@@ -2,7 +2,7 @@
 This guide will help you quickly get started with DLFeat to extract features from various modalities.
 
 # Installation
-First, ensure you have DLFeat.py in your project directory or installed as a package. Then, you need to install its core dependencies.
+First, install core dependencies:
 
 ```
 pip install torch torchvision torchaudio scikit-learn Pillow numpy scipy
@@ -11,10 +11,15 @@ pip install transformers sentence-transformers timm requests
 
 For the best experience and access to all models, it's recommended to keep these libraries, especially transformers and torchvision, up-to-date:
 
-```pip install --upgrade torch torchvision torchaudio transformers sentence-transformers timm requests
+```
+pip install --upgrade torch torchvision torchaudio transformers sentence-transformers timm requests
 ```
 
-Basic Usage
+Then install the package with:
+
+`pip install git+https://github.com/antoninofurnari/dlfeat.git`
+
+# Basic Usage
 Here's how to use DLFeatExtractor for different types of data:
 
 ## 1. Import DLFeat Components
