@@ -47,30 +47,11 @@
 <li><a class="reference internal" href="#model-zoo">Model Zoo</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#DLFeat.ptv_models"><code class="docutils literal notranslate"><span class="pre">ptv_models</span></code></a><ul>
-<li><a class="reference internal" href="#DLFeat.ptv_models.i3d"><code class="docutils literal notranslate"><span class="pre">ptv_models.i3d</span></code></a><ul>
-<li><a class="reference internal" href="#DLFeat.ptv_models.i3d.create_i3d"><code class="docutils literal notranslate"><span class="pre">ptv_models.i3d.create_i3d()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#DLFeat.ptv_models.mvit"><code class="docutils literal notranslate"><span class="pre">ptv_models.mvit</span></code></a><ul>
-<li><a class="reference internal" href="#DLFeat.ptv_models.mvit.create_mvit"><code class="docutils literal notranslate"><span class="pre">ptv_models.mvit.create_mvit()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#DLFeat.ptv_models.slowfast"><code class="docutils literal notranslate"><span class="pre">ptv_models.slowfast</span></code></a><ul>
-<li><a class="reference internal" href="#DLFeat.ptv_models.slowfast.create_slowfast"><code class="docutils literal notranslate"><span class="pre">ptv_models.slowfast.create_slowfast()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#DLFeat.ptv_transforms"><code class="docutils literal notranslate"><span class="pre">ptv_transforms</span></code></a></li>
-<li><a class="reference internal" href="#DLFeat.EncodedVideo"><code class="docutils literal notranslate"><span class="pre">EncodedVideo</span></code></a></li>
-<li><a class="reference internal" href="#DLFeat.ptv_data_transforms"><code class="docutils literal notranslate"><span class="pre">ptv_data_transforms</span></code></a></li>
 <li><a class="reference internal" href="#DLFeat.list_available_models"><code class="docutils literal notranslate"><span class="pre">list_available_models()</span></code></a></li>
 <li><a class="reference internal" href="#DLFeat.DLFeatExtractor"><code class="docutils literal notranslate"><span class="pre">DLFeatExtractor</span></code></a><ul>
 <li><a class="reference internal" href="#DLFeat.DLFeatExtractor.__init__"><code class="docutils literal notranslate"><span class="pre">DLFeatExtractor.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#DLFeat.DLFeatExtractor.get_feature_dimension"><code class="docutils literal notranslate"><span class="pre">DLFeatExtractor.get_feature_dimension()</span></code></a></li>
 <li><a class="reference internal" href="#DLFeat.DLFeatExtractor.get_model_config"><code class="docutils literal notranslate"><span class="pre">DLFeatExtractor.get_model_config()</span></code></a></li>
-<li><a class="reference internal" href="#DLFeat.DLFeatExtractor.fit"><code class="docutils literal notranslate"><span class="pre">DLFeatExtractor.fit()</span></code></a></li>
 <li><a class="reference internal" href="#DLFeat.DLFeatExtractor.transform"><code class="docutils literal notranslate"><span class="pre">DLFeatExtractor.transform()</span></code></a></li>
 <li><a class="reference internal" href="#DLFeat.DLFeatExtractor.set_transform_request"><code class="docutils literal notranslate"><span class="pre">DLFeatExtractor.set_transform_request()</span></code></a></li>
 </ul>
@@ -109,13 +90,14 @@
 <span id="welcome-to-dlfeat-s-documentation"></span><h1>Welcome to DLFeat’s documentation!<a class="headerlink" href="#module-DLFeat" title="Link to this heading"></a></h1>
 <section id="dlfeat-deep-learning-feature-extraction-library">
 <h2>DLFeat: Deep Learning Feature Extraction Library<a class="headerlink" href="#dlfeat-deep-learning-feature-extraction-library" title="Link to this heading"></a></h2>
-<p># … (Main docstring same as v0.3.0, will update Model Zoo entry for Video Swin)
-This version switches Video Swin Transformer to use the torchvision implementation.
+<p># … (Main docstring same as v0.3.0)
+Version 0.4.9:
+- Adds MViT-V2-S and S3D-G video models from torchvision.
 # …</p>
 <section id="model-zoo">
 <h3>Model Zoo<a class="headerlink" href="#model-zoo" title="Link to this heading"></a></h3>
-<p># … (Model Zoo table to be updated for Video Swin source)
-.. list-table:: DLFeat Model Zoo (Excerpt for Video Swin Change)</p>
+<p># … (Model Zoo table updated for new models)
+.. list-table:: DLFeat Model Zoo (Video Model Focus - MViT &amp; S3D from TorchVision)</p>
 <blockquote>
 <div><dl class="field-list simple">
 <dt class="field-odd">widths<span class="colon">:</span></dt>
@@ -139,6 +121,39 @@ This version switches Video Swin Transformer to use the torchvision implementati
 </li>
 <li><ul>
 <li><p>Video</p></li>
+<li><p><cite>video_mvit_v2_s_tv</cite></p></li>
+<li><p>768</p></li>
+<li><p>~78.8% (K400 Top-1)</p></li>
+<li><p>36.5 (16x224^2)</p></li>
+<li><p>Medium</p></li>
+<li><p>Supervised</p></li>
+<li><p>torchvision</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>Video</p></li>
+<li><p><cite>video_s3d_g_tv</cite></p></li>
+<li><p>1024</p></li>
+<li><p>~72.2% (K400 Top-1, S3D-G)</p></li>
+<li><p>31.3 (16x224^2)</p></li>
+<li><p>Medium</p></li>
+<li><p>Supervised</p></li>
+<li><p>torchvision</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>Video</p></li>
+<li><p><cite>r2plus1d_18</cite></p></li>
+<li><p>512</p></li>
+<li><p>~65.2% (K400 Top-1, R(2+1)D-18)</p></li>
+<li><p>32 (16x112^2)</p></li>
+<li><p>Fast</p></li>
+<li><p>Supervised</p></li>
+<li><p>torchvision</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>Video</p></li>
 <li><p><cite>video_swin_t</cite></p></li>
 <li><p>768</p></li>
 <li><p>~78.8% (K400 Top-1, Swin-T)</p></li>
@@ -150,78 +165,21 @@ This version switches Video Swin Transformer to use the torchvision implementati
 </li>
 <li><ul>
 <li><p>Video</p></li>
-<li><p><cite>video_swin_b</cite></p></li>
-<li><p>1024</p></li>
-<li><p>~80.6% (K400 Top-1, Swin-B)</p></li>
-<li><p>92 (32x224^2)</p></li>
-<li><p>Slower</p></li>
-<li><p>Supervised</p></li>
-<li><p>torchvision</p></li>
+<li><p><cite>videomae_base_k400_pt</cite></p></li>
+<li><p>768</p></li>
+<li><p>~81.2% (K400 Top-1, ViT-B)</p></li>
+<li><p>N/A</p></li>
+<li><p>Medium</p></li>
+<li><p>Supervised (PT+FT)</p></li>
+<li><p>transformers</p></li>
 </ul>
 </li>
 </ul>
 </div></blockquote>
 <p><em>(Note: Full Model Zoo table is extensive and located at the beginning of the file.
-Performance, FLOPS, and Speed are indicative.)</em></p>
+Performance, FLOPS, and Speed are indicative and will be updated.)</em></p>
 </section>
 </section>
-<dl class="py class">
-<dt class="sig sig-object py" id="DLFeat.ptv_models">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DLFeat.</span></span><span class="sig-name descname"><span class="pre">ptv_models</span></span><a class="reference internal" href="_modules/DLFeat.html#ptv_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.ptv_models" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py class">
-<dt class="sig sig-object py" id="DLFeat.ptv_models.i3d">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">i3d</span></span><a class="reference internal" href="_modules/DLFeat.html#ptv_models.i3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.ptv_models.i3d" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="DLFeat.ptv_models.i3d.create_i3d">
-<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_i3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DLFeat.html#ptv_models.i3d.create_i3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.ptv_models.i3d.create_i3d" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="DLFeat.ptv_models.mvit">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mvit</span></span><a class="reference internal" href="_modules/DLFeat.html#ptv_models.mvit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.ptv_models.mvit" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="DLFeat.ptv_models.mvit.create_mvit">
-<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_mvit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DLFeat.html#ptv_models.mvit.create_mvit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.ptv_models.mvit.create_mvit" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="DLFeat.ptv_models.slowfast">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">slowfast</span></span><a class="reference internal" href="_modules/DLFeat.html#ptv_models.slowfast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.ptv_models.slowfast" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="DLFeat.ptv_models.slowfast.create_slowfast">
-<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_slowfast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DLFeat.html#ptv_models.slowfast.create_slowfast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.ptv_models.slowfast.create_slowfast" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="DLFeat.ptv_transforms">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DLFeat.</span></span><span class="sig-name descname"><span class="pre">ptv_transforms</span></span><a class="reference internal" href="_modules/DLFeat.html#ptv_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.ptv_transforms" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="DLFeat.EncodedVideo">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DLFeat.</span></span><span class="sig-name descname"><span class="pre">EncodedVideo</span></span><a class="reference internal" href="_modules/DLFeat.html#EncodedVideo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.EncodedVideo" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="DLFeat.ptv_data_transforms">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DLFeat.</span></span><span class="sig-name descname"><span class="pre">ptv_data_transforms</span></span><a class="reference internal" href="_modules/DLFeat.html#ptv_data_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.ptv_data_transforms" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="DLFeat.list_available_models">
 <span class="sig-prename descclassname"><span class="pre">DLFeat.</span></span><span class="sig-name descname"><span class="pre">list_available_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DLFeat.html#list_available_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.list_available_models" title="Link to this definition"></a></dt>
@@ -244,11 +202,6 @@ Performance, FLOPS, and Speed are indicative.)</em></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="DLFeat.DLFeatExtractor.get_model_config">
 <span class="sig-name descname"><span class="pre">get_model_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/DLFeat.html#DLFeatExtractor.get_model_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.DLFeatExtractor.get_model_config" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="DLFeat.DLFeatExtractor.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DLFeat.html#DLFeatExtractor.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.DLFeatExtractor.fit" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -300,7 +253,7 @@ sub-estimator of a meta-estimator, e.g. used inside a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="DLFeat.run_self_tests">
-<span class="sig-prename descclassname"><span class="pre">DLFeat.</span></span><span class="sig-name descname"><span class="pre">run_self_tests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models_to_test</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DLFeat.html#run_self_tests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.run_self_tests" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">DLFeat.</span></span><span class="sig-name descname"><span class="pre">run_self_tests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models_to_test</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attempt_real_video_test</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DLFeat.html#run_self_tests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#DLFeat.run_self_tests" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <div class="toctree-wrapper compound">
