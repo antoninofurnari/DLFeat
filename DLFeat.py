@@ -1,22 +1,213 @@
 # DLFeat: Deep Learning Feature Extraction Library
 # Inspired by VLFeat for ease of use and modularity in the modern deep learning era.
-# Version: 0.4.9
+# Version: 0.4.8
 # Author: Gemini
 # Date: 2025-06-01
 
 """
 DLFeat: Deep Learning Feature Extraction Library
 ================================================
-# ... (Main docstring same as v0.3.0)
-Version 0.4.9:
-- Adds MViT-V2-S and S3D-G video models from torchvision.
-# ...
+
+.. mdinclude:: ../../README.md 
+   (This is a placeholder for Sphinx to include your main README if you structure your docs this way)
+
+**DLFeat** is a Python library designed for easy and modular feature extraction 
+from various data modalities including images, videos, audio, and text. 
+It leverages powerful pre-trained models from libraries like PyTorch, torchvision, 
+Transformers, Sentence-Transformers, and TIMM. 
+The goal is to provide a "black box" tool suitable for educational and research purposes, 
+allowing users to quickly extract meaningful features for data analysis tasks 
+without needing to delve into the complexities of each model's architecture or training.
+
+This version is compatible with the scikit-learn transformer API, includes an expanded
+model zoo, and a callable self-test function with a summary report.
+
+Core Features
+-------------
+- **Unified API**: Consistent `DLFeatExtractor` class for all modalities.
+- **Scikit-learn Compatible**: Implements `BaseEstimator` and `TransformerMixin` for easy pipeline integration.
+- **Multi-Modal Support**: Extract features from images, videos, audio, and text.
+- **Extensive Model Zoo**: Access to a wide range of pre-trained models (see Model Zoo section).
+- **Automatic Handling**: Manages model loading, preprocessing, and device placement (CPU/GPU).
+- **Single-File Library**: Easy to distribute and integrate (though dependencies must be installed).
+- **Self-Testing**: Built-in function `run_self_tests()` to verify model availability and basic functionality.
+
+Installation
+------------
+DLFeat itself is a single Python file. However, it relies on several external 
+libraries. You'll need to install them first.
+
+.. code-block:: bash
+
+    pip install torch torchvision torchaudio scikit-learn Pillow numpy scipy
+    pip install transformers sentence-transformers timm requests
+
+For optimal performance and access to all models, ensure these libraries, especially `transformers` and `torchvision`, are up-to-date:
+
+.. code-block:: bash
+
+    pip install --upgrade torch torchvision torchaudio transformers sentence-transformers timm requests
+
+Getting Started
+---------------
+Here's how to quickly get started with `DLFeat` for various modalities.
+
+**1. Import necessary components:**
+
+.. code-block:: python
+
+    from DLFeat import DLFeatExtractor, list_available_models
+
+    # You can list models for a specific task
+    # print(list_available_models(task_type="image"))
+
+**2. Image Feature Extraction:**
+
+.. code-block:: python
+
+    # Initialize for an image model
+    img_extractor = DLFeatExtractor(model_name="resnet18", task_type="image")
+    
+    # Provide a list of image paths or PIL.Image objects
+    # Replace with your actual image paths
+    try:
+        # Create a dummy image for the snippet if Pillow is available
+        from PIL import Image as PILImage, ImageDraw as PILImageDraw
+        dummy_img_path = "temp_dummy_image_snippet.png"
+        img = PILImage.new('RGB', (224, 224), color = 'skyblue')
+        d = PILImageDraw.Draw(img)
+        d.text((10,10), "Sample", fill=(0,0,0))
+        img.save(dummy_img_path)
+        
+        image_paths = [dummy_img_path, dummy_img_path] 
+        
+        # Fit (no-op for pre-trained models) and transform
+        img_extractor.fit(image_paths) 
+        image_features = img_extractor.transform(image_paths)
+        print(f"Image features shape: {image_features.shape}") # e.g., (2, 512) for resnet18
+        
+        if os.path.exists(dummy_img_path): os.remove(dummy_img_path)
+    except ImportError:
+        print("Pillow not found, skipping image snippet. Install Pillow to run.")
+    except Exception as e:
+        print(f"Error in image snippet: {e}")
+
+**3. Text Feature Extraction:**
+
+.. code-block:: python
+
+    text_extractor = DLFeatExtractor(model_name="sentence-bert", task_type="text")
+    texts = ["This is the first sentence for feature extraction.", 
+             "DLFeat makes it easy to get embeddings."]
+    text_features = text_extractor.transform(texts)
+    print(f"Text features shape: {text_features.shape}") # e.g., (2, 384) for sentence-bert
+
+**4. Audio Feature Extraction:**
+   Requires `torchaudio` and `scipy` for dummy audio creation in this snippet.
+
+.. code-block:: python
+
+    try:
+        # Create a dummy audio file for the snippet
+        import numpy as np_audio
+        import scipy.io.wavfile as scipy_wav_audio
+        dummy_audio_path = "temp_dummy_audio_snippet.wav"
+        sample_rate = 16000; duration = 1; frequency = 440
+        t = np_audio.linspace(0, duration, int(sample_rate * duration), endpoint=False)
+        data = np_audio.sin(2 * np_audio.pi * frequency * t) * 0.5
+        data_int16 = (data * 32767).astype(np_audio.int16)
+        scipy_wav_audio.write(dummy_audio_path, sample_rate, data_int16)
+
+        audio_extractor = DLFeatExtractor(model_name="wav2vec2_base", task_type="audio")
+        audio_paths = [dummy_audio_path, dummy_audio_path]
+        audio_features = audio_extractor.transform(audio_paths)
+        print(f"Audio features shape: {audio_features.shape}") # e.g., (2, 768) for wav2vec2_base
+
+        if os.path.exists(dummy_audio_path): os.remove(dummy_audio_path)
+    except ImportError:
+        print("Scipy or Numpy not found, skipping audio snippet. Install them to run.")
+    except Exception as e:
+        print(f"Error in audio snippet: {e}")
+
+
+**5. Video Feature Extraction:**
+   Note: Video processing can be slow. For self-tests, `DLFeat` downloads a small sample video.
+   You'll need `requests` library installed for this download in tests.
+   Replace `"your_video.mp4"` with actual video paths for your use.
+
+.. code-block:: python
+
+    # Using a torchvision model for this example
+    # Replace "path/to/your/video1.mp4" with a real video file for actual use.
+    # The self-test function (run_self_tests) attempts to download a sample video.
+    try:
+        video_extractor = DLFeatExtractor(model_name="r2plus1d_18", task_type="video")
+        # This will likely fail or be skipped if dummy_video.mp4 isn't a real video
+        # For a real test, provide a list of actual video paths:
+        # video_paths = ["path/to/your/video1.mp4", "path/to/your/video2.mp4"]
+        # video_features = video_extractor.transform(video_paths)
+        # print(f"Video features shape: {video_features.shape}") 
+        print("Video Extractor for r2plus1d_18 initialized. Test with real video paths.")
+    except Exception as e:
+        print(f"Could not initialize video extractor or run snippet: {e}")
+        print("Video models require their dependencies (torchvision, transformers) to be correctly installed.")
+
+
+**6. Multimodal (Image-Text) Feature Extraction:**
+
+.. code-block:: python
+
+    try:
+        # Re-create dummy image for this snippet
+        from PIL import Image as PILImageMM, ImageDraw as PILImageDrawMM
+        dummy_img_path_mm = "temp_dummy_image_mm_snippet.png"
+        img_mm = PILImageMM.new('RGB', (224, 224), color = 'lightgreen')
+        d_mm = PILImageDrawMM.Draw(img_mm)
+        d_mm.text((10,10), "MM Sample", fill=(0,0,0))
+        img_mm.save(dummy_img_path_mm)
+
+        clip_extractor = DLFeatExtractor(model_name="clip_vit_b32", task_type="multimodal_image_text")
+        multimodal_data = [
+            (dummy_img_path_mm, "A light green square with text."),
+            (dummy_img_path_mm, "Another description of the same image.")
+        ]
+        multimodal_features = clip_extractor.transform(multimodal_data)
+        print(f"CLIP Image features shape: {multimodal_features['image_features'].shape}") # e.g., (2, 512)
+        print(f"CLIP Text features shape: {multimodal_features['text_features'].shape}")   # e.g., (2, 512)
+
+        if os.path.exists(dummy_img_path_mm): os.remove(dummy_img_path_mm)
+    except ImportError:
+        print("Pillow not found, skipping multimodal image-text snippet.")
+    except Exception as e:
+        print(f"Error in multimodal (image-text) snippet: {e}")
+
+
+API Reference
+-------------
+
+.. automodule:: DLFeat
+   :members: DLFeatExtractor, list_available_models, run_self_tests
+
+**DLFeatExtractor Class**
+
+.. autoclass:: DLFeat.DLFeatExtractor
+   :members: __init__, fit, transform, get_feature_dimension, get_model_config
+
+**Utility Functions**
+
+.. autofunction:: DLFeat.list_available_models
+.. autofunction:: DLFeat.run_self_tests
 
 Model Zoo
 ---------
-# ... (Model Zoo table updated for new models)
-.. list-table:: DLFeat Model Zoo (Video Model Focus - MViT & S3D from TorchVision)
-   :widths: 15 25 10 10 10 10 15 15
+The following table provides an overview of the models available in DLFeat.
+Performance metrics (Acc., mAP, R@1, etc.) are typically reported on standard benchmarks 
+(e.g., ImageNet, Kinetics-400, GLUE, MSCOCO, MSR-VTT). FLOPS and Speed are indicative and 
+can vary significantly based on hardware, batch size, input resolution, and specific implementation. 
+"SSL" denotes Self-Supervised Learning. "Multimodal" models are trained on multiple data types.
+
+.. list-table:: DLFeat Model Zoo
+   :widths: 12 28 8 20 8 10 12 12
    :header-rows: 1
 
    * - Modality
@@ -24,57 +215,263 @@ Model Zoo
      - Feat. Dim
      - Performance (Benchmark)
      - FLOPS (G)
-     - Speed (Ref.)
+     - Speed
      - Supervision
      - Source
-   * - Video
-     - `video_mvit_v2_s_tv`
+   * - **Image**
+     - 
+     - 
+     - 
+     - 
+     - 
+     - 
+     - 
+   * - Image
+     - `resnet18`
+     - 512
+     - 69.76% (ImageNet Top-1)
+     - 1.8
+     - Fast
+     - Supervised
+     - torchvision
+   * - Image
+     - `resnet34`
+     - 512
+     - 73.30% (ImageNet Top-1)
+     - 3.6
+     - Fast
+     - Supervised
+     - torchvision
+   * - Image
+     - `resnet50`
+     - 2048
+     - 80.86% (ImageNet Top-1, tv)
+     - 4.1
+     - Medium
+     - Supervised
+     - torchvision_or_timm
+   * - Image
+     - `resnet101`
+     - 2048
+     - 81.88% (ImageNet Top-1, tv)
+     - 7.8
+     - Medium
+     - Supervised
+     - torchvision_or_timm
+   * - Image
+     - `resnet152`
+     - 2048
+     - 82.28% (ImageNet Top-1, tv)
+     - 11.5
+     - Slower
+     - Supervised
+     - torchvision_or_timm
+   * - Image
+     - `efficientnet_b0`
+     - 1280
+     - 77.69% (ImageNet Top-1)
+     - 0.39
+     - Very Fast
+     - Supervised
+     - timm
+   * - Image
+     - `efficientnet_b2`
+     - 1408
+     - 80.51% (ImageNet Top-1)
+     - 1.0
+     - Fast
+     - Supervised
+     - timm
+   * - Image
+     - `efficientnet_b4`
+     - 1792
+     - 83.37% (ImageNet Top-1)
+     - 4.4
+     - Medium
+     - Supervised
+     - timm
+   * - Image
+     - `mobilenet_v2`
+     - 1280
+     - 71.88% (ImageNet Top-1)
+     - 0.3
+     - Very Fast
+     - Supervised
+     - torchvision
+   * - Image
+     - `mobilenet_v3_small`
+     - 576
+     - 67.67% (ImageNet Top-1)
+     - 0.06
+     - Very Fast
+     - Supervised
+     - torchvision
+   * - Image
+     - `mobilenet_v3_large`
+     - 960
+     - 74.04% (ImageNet Top-1)
+     - 0.22
+     - Very Fast
+     - Supervised
+     - torchvision
+   * - Image
+     - `vit_tiny_patch16_224`
+     - 192
+     - 75.4% (ImageNet Top-1, DeiT)
+     - 1.3
+     - Fast
+     - Supervised (DeiT)
+     - timm
+   * - Image
+     - `vit_small_patch16_224`
+     - 384
+     - 81.2% (ImageNet Top-1, DeiT)
+     - 4.6
+     - Medium
+     - Supervised (DeiT)
+     - timm
+   * - Image
+     - `vit_base_patch16_224`
      - 768
-     - ~78.8% (K400 Top-1)
-     - 36.5 (16x224^2)
+     - 85.2% (ImageNet Top-1, MAE FT)
+     - 17.6
      - Medium
-     - Supervised
-     - torchvision
-   * - Video
-     - `video_s3d_g_tv`
-     - 1024
-     - ~72.2% (K400 Top-1, S3D-G)
-     - 31.3 (16x224^2)
+     - SSL (MAE)
+     - timm
+   * - Image
+     - `dinov2_base`
+     - 768
+     - 82.8% (ImageNet k-NN, ViT-B/14)
+     - ~33 (ViT-B/14)
      - Medium
-     - Supervised
-     - torchvision
+     - SSL (DINOv2)
+     - Transformers
+   * - **Video**
+     - 
+     - 
+     - 
+     - 
+     - 
+     - 
+     - 
    * - Video
      - `r2plus1d_18`
      - 512
-     - ~65.2% (K400 Top-1, R(2+1)D-18)
-     - 32 (16x112^2)
-     - Fast
+     - 65.2% (K400 Top-1)
+     - 31.6 (16f)
+     - Medium
      - Supervised
      - torchvision
    * - Video
      - `video_swin_t`
      - 768
-     - ~78.8% (K400 Top-1, Swin-T)
+     - 78.8% (K400 Top-1)
      - 48 (32x224^2)
      - Medium
      - Supervised
      - torchvision
    * - Video
+     - `video_swin_s`
+     - 768
+     - 81.6% (K400 Top-1)
+     - 92 (32x224^2)
+     - Slower
+     - Supervised
+     - torchvision
+   * - Video
+     - `video_swin_b`
+     - 1024
+     - 82.7% (K400 Top-1)
+     - 199 (32x224^2)
+     - Slower
+     - Supervised
+     - torchvision
+   * - Video
      - `videomae_base_k400_pt`
      - 768
-     - ~81.2% (K400 Top-1, ViT-B)
-     - N/A
+     - 81.2% (K400 Top-1, ViT-B)
+     - ~168 (16x224^2)
      - Medium
      - Supervised (PT+FT)
      - transformers
+   * - **Audio**
+     - 
+     - 
+     - 
+     - 
+     - 
+     - 
+     - 
+   * - Audio
+     - `wav2vec2_base`
+     - 768
+     - ~6.9% (LibriSpeech WER, no LM)
+     - 94.5M Params
+     - Fast
+     - SSL (Wav2Vec2)
+     - Transformers
+   * - Audio
+     - `ast_vit_base_patch16_224`
+     - 768
+     - 0.459 (AudioSet mAP)
+     - 87M Params
+     - Medium
+     - Supervised
+     - Transformers
+   * - **Text**
+     - 
+     - 
+     - 
+     - 
+     - 
+     - 
+     - 
+   * - Text
+     - `sentence-bert`
+     - 384
+     - 85.3 (STS-B Spearman)
+     - N/A
+     - Very Fast
+     - SSL (SBERT)
+     - sentence-transformers
+   * - Text
+     - `bert_base_uncased`
+     - 768
+     - 79.6 (GLUE Avg.)
+     - 110M Params
+     - Medium
+     - SSL (BERT)
+     - Transformers
+   * - **Multimodal**
+     - 
+     - 
+     - 
+     - 
+     - 
+     - 
+     - 
+   * - Image-Text
+     - `clip_vit_b32`
+     - 512
+     - 63.3% (ImageNet zero-shot)
+     - N/A
+     - Fast
+     - Multimodal SSL
+     - Transformers
+   * - Video-Text
+     - `xclip_base_patch16`
+     - 512
+     - 46.7% (MSR-VTT R@1)
+     - N/A
+     - Medium
+     - Multimodal SSL
+     - Transformers
 
-
-*(Note: Full Model Zoo table is extensive and located at the beginning of the file.
-Performance, FLOPS, and Speed are indicative and will be updated.)*
+*Note on FLOPS/Speed: These are highly approximate and depend on input size, hardware, and batching. "Fast" might mean >100 FPS for images on a modern GPU. "N/A" indicates data not readily found or highly variable. For parameter counts, "M Params" refers to millions of parameters.*
 
 """
 
-__version__ = "0.4.9" 
+__version__ = "0.4.8" 
 
 import torch
 import torchvision 
@@ -119,7 +516,7 @@ try:
     from transformers import (
         AutoProcessor, AutoModel, AutoTokenizer, Wav2Vec2FeatureExtractor,
         AutoImageProcessor, 
-        CLIPProcessor, CLIPModel, BlipProcessor, BlipModel,
+        CLIPProcessor, CLIPModel, BlipProcessor, BlipModel, # Assuming Blip might be added back
         VideoMAEImageProcessor, VideoMAEModel, 
         XCLIPProcessor, XCLIPModel,
         ASTFeatureExtractor,
@@ -138,8 +535,8 @@ except ImportError:
     class AutoImageProcessor: pass
     class CLIPProcessor: pass
     class CLIPModel: pass
-    class BlipProcessor: pass
-    class BlipModel: pass
+    class BlipProcessor: pass # Keep dummy in case Blip is re-added
+    class BlipModel: pass   # Keep dummy in case Blip is re-added
     class VideoMAEImageProcessor: pass 
     class VideoMAEModel: pass
     class XCLIPProcessor: pass
@@ -184,7 +581,7 @@ except ImportError:
         @staticmethod
         def write(*args, **kwargs): raise ImportError("Scipy not installed, cannot write dummy audio.")
 
-# PyTorchVideo and its mock are removed as it's no longer a direct dependency for listed models.
+# PyTorchVideo related imports and mocks are removed as it's no longer a direct dependency.
 
 MODEL_CONFIGS = {
     # --- Image Models ---
@@ -204,16 +601,11 @@ MODEL_CONFIGS = {
     "vit_base_patch16_224": {"task": "image", "dim": 768, "input_size": 224, "source": "timm", "timm_name": "vit_base_patch16_224.mae"}, 
     "dinov2_base": {"task": "image", "dim": 768, "input_size": 224, "source": "transformers", "hf_name": "facebook/dinov2-base"},
 
-    # --- Video Models (Refactored) ---
-    # torchvision models
+    # --- Video Models (Refactored - MViT, SlowFast, X3D from PTV removed) ---
     "r2plus1d_18": {"task": "video", "dim": 512, "source": "torchvision", "tv_model_name":"r2plus1d_18", "clip_len": 16, "frame_rate": 15, "input_size": 112}, 
     "video_swin_t": {"task": "video", "dim": 768, "source": "torchvision", "tv_model_name": "swin3d_t", "clip_len": 32, "input_size": 224}, 
     "video_swin_s": {"task": "video", "dim": 768, "source": "torchvision", "tv_model_name": "swin3d_s", "clip_len": 32, "input_size": 224}, 
     "video_swin_b": {"task": "video", "dim": 1024, "source": "torchvision", "tv_model_name": "swin3d_b", "clip_len": 32, "input_size": 224},
-    "video_mvit_v2_s_tv": {"task": "video", "dim": 768, "source": "torchvision", "tv_model_name": "mvit_v2_s", "clip_len": 16, "input_size": 224}, # Default K400 weights take 16x224x224
-    "video_s3d_g_tv": {"task": "video", "dim": 1024, "source": "torchvision", "tv_model_name": "s3d", "clip_len": 16, "input_size": 224}, # S3D-G, K400 weights take 16x224x224
-    
-    # transformers models
     "videomae_base_k400_pt": {"task": "video", "dim": 768, "source": "transformers", "hf_name": "MCG-NJU/videomae-base-finetuned-kinetics", "num_frames": 16, "input_size": 224},
     
     # --- Audio Models ---
@@ -229,18 +621,7 @@ MODEL_CONFIGS = {
     "xclip_base_patch16": {"task": "multimodal_video_text", "dim": 512, "source": "transformers", "hf_name": "microsoft/xclip-base-patch16", "num_frames": 8}
 }
 
-DEFAULT_MODELS_TO_TEST = [ 
-    "resnet18", "efficientnet_b0", "mobilenet_v2", "vit_tiny_patch16_224", "dinov2_base",
-    "r2plus1d_18", "videomae_base_k400_pt", "video_swin_t", "video_mvit_v2_s_tv", "video_s3d_g_tv",
-    "wav2vec2_base", "sentence-bert", 
-    "clip_vit_b32", "xclip_base_patch16"
-]
-
-
-def list_available_models(task_type=None):
-    if task_type:
-        return [name for name, config in MODEL_CONFIGS.items() if config["task"] == task_type]
-    return list(MODEL_CONFIGS.keys())
+# DEFAULT_MODELS_TO_TEST removed, run_self_tests will default to 'all'
 
 class DLFeatExtractor(BaseEstimator, TransformerMixin):
     def __init__(self, model_name, task_type=None, device="auto"):
@@ -286,6 +667,7 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
         return self.config.copy()
     
     def _load_image_model_torchvision(self, model_name_tv):
+        # ... (same as v0.4.7)
         model_fn = getattr(tv_models, model_name_tv)
         
         weights_enum_name_to_try = None
@@ -427,19 +809,15 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
                 if not hasattr(tv_video_models, actual_tv_model_name): 
                     raise ImportError(f"Video model '{actual_tv_model_name}' not found in torchvision.models.video.")
                 model_fn = getattr(tv_video_models, actual_tv_model_name)
-                
                 weights_enum_name_map = { 
                     "r2plus1d_18": "R2Plus1D_18_Weights",
                     "swin3d_t": "Swin3D_T_Weights", 
                     "swin3d_s": "Swin3D_S_Weights", 
-                    "swin3d_b": "Swin3D_B_Weights",
-                    "mvit_v2_s": "MViT_V2_S_Weights", # Added for MViT
-                    "s3d": "S3D_Weights"             # Added for S3D
+                    "swin3d_b": "Swin3D_B_Weights", 
                 }
                 lookup_key_for_map = actual_tv_model_name 
                 weights_enum_name = weights_enum_name_map.get(lookup_key_for_map)
                 weights_value_name = "DEFAULT" 
-                
                 if weights_enum_name:
                     try:
                         weights_enum_class = getattr(tv_video_models, weights_enum_name, None)
@@ -474,29 +852,11 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
                     )
                     self.model = model_fn(pretrained=True) 
 
-                # Classifier head removal
-                if self.model_name == "video_s3d_g_tv": # S3D has a 'classifier' attribute (Sequential)
-                    if hasattr(self.model, 'classifier') and isinstance(self.model.classifier, torch.nn.Sequential):
-                        # Replace the last linear layer in S3D's classifier
-                        # S3D classifier: (0): Dropout(p=0.2, inplace=False), (1): Conv3d(...), (2): Dropout(p=0.2, inplace=False), (3): Conv3d(...)
-                        # The final Conv3d acts as the classifier. We want features before it.
-                        # A common approach is to replace the final layer or the entire block.
-                        # For S3D, the features are typically taken before the final Conv3d and avg pooling.
-                        # Let's replace the entire classifier block for simplicity if it's a Sequential.
-                        # The actual feature extraction might need to tap into an earlier layer if this doesn't give expected dim.
-                        # For now, replacing the whole classifier block.
-                        self.model.classifier = torch.nn.Identity()
-                    else: # Fallback if structure is different
-                         warnings.warn(f"Could not specifically adapt S3D classifier head for {self.model_name}. Using generic fc/head removal.")
-                         if hasattr(self.model, 'fc'): self.model.fc = torch.nn.Identity()
-                         elif hasattr(self.model, 'head'): self.model.head = torch.nn.Identity()
-
-                elif hasattr(self.model, 'head'): # For MViT, Swin
+                if hasattr(self.model, 'head'): 
                     if isinstance(self.model.head, torch.nn.Linear): self.model.head = torch.nn.Identity()
                     elif isinstance(self.model.head, torch.nn.Sequential) and len(self.model.head)>0 and isinstance(self.model.head[-1], torch.nn.Linear):
                         self.model.head[-1] = torch.nn.Identity()
-                elif hasattr(self.model, 'fc'): # For R(2+1)D
-                    self.model.fc = torch.nn.Identity() 
+                elif hasattr(self.model, 'fc'): self.model.fc = torch.nn.Identity() 
                 
                 self.model.eval().to(self.device)
 
@@ -509,7 +869,7 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
                         T.Resize([input_size, input_size], antialias=True) 
                     ])
             
-            elif source == "transformers": # Only VideoMAE now
+            elif source == "transformers": 
                 hf_model_name = self.config["hf_name"]
                 hf_processor_name = self.config.get("hf_name_processor", hf_model_name) 
 
@@ -560,7 +920,6 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
             raise ValueError(f"Unsupported task type: {self.task_type}")
         
     def _preprocess_image(self, image_input):
-        # ... (same as v0.4.7)
         if isinstance(image_input, str):
             if not os.path.exists(image_input): raise FileNotFoundError(f"Image file: {image_input}")
             img = Image.open(image_input).convert("RGB")
@@ -575,17 +934,17 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
             raise RuntimeError(f"No image transform or processor available for {self.model_name}")
 
     def _preprocess_text_transformers(self, text_input):
-        # ... (same as v0.4.7)
         return self.tokenizer(text_input, padding=True, truncation=True, return_tensors="pt")
 
     def _preprocess_video_torchvision(self, video_path):
-        # ... (same as v0.4.7)
         if not os.path.exists(video_path): raise FileNotFoundError(f"Video file: {video_path}")
         try:
+            # Reverted to default output_format
             frames, _, info = torchvision.io.read_video(video_path, pts_unit='sec') 
         except Exception as e: raise RuntimeError(f"Failed to read {video_path} using torchvision.io: {e}.")
         if frames.numel() == 0: raise ValueError(f"No frames from {video_path}.")
         
+        # Assuming default output is THWC (Time, Height, Width, Channel)
         frames = frames.permute(0, 3, 1, 2) # T, C, H, W uint8
 
         total_frames = frames.shape[0]
@@ -627,12 +986,14 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
         return processed_clip.unsqueeze(0) 
 
     def _preprocess_video_transformers(self, video_path): 
-        # ... (same as v0.4.7)
         if not os.path.exists(video_path): raise FileNotFoundError(f"Video file: {video_path}")
         try:
+            # Reverted to default output_format
             frames_tensor, _, _ = torchvision.io.read_video(video_path, pts_unit='sec') 
         except Exception as e: raise RuntimeError(f"Failed to read {video_path}: {e}.")
         if frames_tensor.numel() == 0: raise ValueError(f"No frames from {video_path}.")
+        
+        # Assuming default output is THWC (Time, Height, Width, Channel)
         
         total_frames = frames_tensor.shape[0]
         num_sample_frames = self.config.get("num_frames", 16) 
@@ -643,6 +1004,7 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
             warnings.warn(f"Video {video_path} has {total_frames} frames, less than configured {num_sample_frames}. Using all {total_frames} frames and padding.")
             indices = np.arange(total_frames)
             padding_needed = num_sample_frames - total_frames
+            # frames_tensor is (T,H,W,C) assuming default THWC
             video_frames_list = [Image.fromarray(frames_tensor[i].numpy()) for i in indices]
             for _ in range(padding_needed): video_frames_list.append(video_frames_list[-1])
         else:
@@ -655,7 +1017,6 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
             return self.processor(images=video_frames_list, return_tensors="pt") 
     
     def _preprocess_audio(self, audio_input):
-        # ... (same as v0.4.7)
         if not hasattr(TA, 'Resample'): 
              raise ImportError("Torchaudio (transforms.Resample) dummy class detected or not installed.")
         if isinstance(audio_input, str):
@@ -676,7 +1037,6 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
 
     @torch.no_grad()
     def transform(self, X, batch_size=32, **kwargs):
-        # ... (same as v0.4.7, with XCLIP feature extraction correction)
         if not isinstance(X, list): raise TypeError("Input X for transform must be a list of items.")
         if not X: 
             if self.task_type.startswith("multimodal"): return {k: np.array([]) for k in ["image_features", "text_features", "video_features"] if k.split('_')[0] in self.task_type}
@@ -782,18 +1142,19 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
                 inputs = {k: v.to(self.device) for k, v in inputs.items()}
                 outputs = self.model(**inputs) 
                 
-                # Corrected XCLIP feature extraction:
-                raw_video_embeds = outputs.video_embeds
-                raw_text_embeds = outputs.text_embeds
+                # Process XCLIP outputs, assuming they might be 3D and need reduction
+                video_f = outputs.video_embeds
+                if video_f.ndim == 3 and video_f.shape[0] == len(batch_tuples): # (batch, seq, dim)
+                    video_f = video_f.mean(dim=1)
+                elif video_f.ndim != 2 or video_f.shape[0] != len(batch_tuples): # Not (batch, dim)
+                    raise ValueError(f"XCLIP video_embeds has unexpected shape: {video_f.shape}")
                 
-                video_f = raw_video_embeds
-                if video_f.ndim == 3: # (batch_size, num_video_tokens, hidden_dim)
-                    video_f = video_f.mean(dim=1) # Mean pool over video tokens
+                text_f = outputs.text_embeds
+                if text_f.ndim == 3 and text_f.shape[0] == len(batch_tuples): # (batch, seq, dim) -> e.g. (2, 2, 512) from error
+                    text_f = text_f[:, 0, :] # Take CLS-like token
+                elif text_f.ndim != 2 or text_f.shape[0] != len(batch_tuples):
+                    raise ValueError(f"XCLIP text_embeds has unexpected shape: {text_f.shape}")
                 
-                text_f = raw_text_embeds
-                if text_f.ndim == 3: # (batch_size, num_text_tokens, hidden_dim)
-                    text_f = text_f[:, 0, :] # Take CLS token embedding
-
                 vid_feats_list.append(video_f.cpu().numpy())
                 txt_feats_list.append(text_f.cpu().numpy())   
 
