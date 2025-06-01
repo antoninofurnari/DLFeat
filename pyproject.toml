@@ -37,15 +37,10 @@ classifiers = [
 
 dependencies = [
     "torch>=1.9.0",
-    "torchvision>=0.10.0",
-    "torchaudio>=0.9.0",
     "scikit-learn>=0.24.0",
     "Pillow>=8.0.0",
     "numpy>=1.19.0",
     "scipy>=1.5.0",
-    "transformers>=4.20.0", 
-    "sentence-transformers>=2.0.0",
-    "timm>=0.4.12",
     "requests>=2.25.0"
 ]
 
