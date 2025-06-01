@@ -19,7 +19,16 @@ Note that dlfeat is modular, so if some of those dependencies are not installed,
 
 Then install the package with:
 
-`pip install git+https://github.com/antoninofurnari/dlfeat.git`
+```
+pip install git+https://github.com/antoninofurnari/dlfeat.git
+```
+
+After installing the library, you can run test to see which models are avilable with:
+
+```
+import dlfeat
+dlfeat.run_self_tests()
+```
 
 # Basic Usage
 Here's how to use DLFeatExtractor for different types of data:

@@ -100,7 +100,14 @@
 </div>
 <p>Note that dlfeat is modular, so if some of those dependencies are not installed, it will work with reduced functionalities.</p>
 <p>Then install the package with:</p>
-<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/antoninofurnari/dlfeat.git</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">antoninofurnari</span><span class="o">/</span><span class="n">dlfeat</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>After installing the library, you can run test to see which models are avilable with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">dlfeat</span>
+<span class="n">dlfeat</span><span class="o">.</span><span class="n">run_self_tests</span><span class="p">()</span>
+</pre></div>
+</div>
 </section>
 <section id="basic-usage">
 <h1>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h1>
