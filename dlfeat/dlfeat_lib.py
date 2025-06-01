@@ -609,6 +609,9 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
         if self.model_name.startswith("ast"): processed_input_data = waveform.squeeze(0) 
         return self.processor(processed_input_data, sampling_rate=self.target_sr, return_tensors="pt", padding=True)
 
+    @torch.no_grad()
+    def fit():
+        pass
 
     @torch.no_grad()
     def transform(self, X, batch_size=32, **kwargs):
