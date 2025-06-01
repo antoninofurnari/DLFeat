@@ -68,81 +68,40 @@
   <h1>Source code for DLFeat</h1><div class="highlight"><pre>
 <span></span><span class="c1"># DLFeat: Deep Learning Feature Extraction Library</span>
 <span class="c1"># Inspired by VLFeat for ease of use and modularity in the modern deep learning era.</span>
-<span class="c1"># Version: 0.4.9</span>
-<span class="c1"># Author: Gemini</span>
+<span class="c1"># Version: 0.5.0</span>
+<span class="c1"># Author: Antonino Furnari</span>
 <span class="c1"># Date: 2025-06-01</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">DLFeat: Deep Learning Feature Extraction Library</span>
 <span class="sd">================================================</span>
-<span class="sd"># ... (Main docstring same as v0.3.0)</span>
-<span class="sd">Version 0.4.9:</span>
-<span class="sd">- Adds MViT-V2-S and S3D-G video models from torchvision.</span>
-<span class="sd"># ...</span>
 
-<span class="sd">Model Zoo</span>
-<span class="sd">---------</span>
-<span class="sd"># ... (Model Zoo table updated for new models)</span>
-<span class="sd">.. list-table:: DLFeat Model Zoo (Video Model Focus - MViT &amp; S3D from TorchVision)</span>
-<span class="sd">   :widths: 15 25 10 10 10 10 15 15</span>
-<span class="sd">   :header-rows: 1</span>
+<span class="sd">**DLFeat** is a Python library designed for easy and modular feature extraction </span>
+<span class="sd">from various data modalities including images, videos, audio, and text. </span>
+<span class="sd">It leverages powerful pre-trained models from libraries like PyTorch, torchvision, </span>
+<span class="sd">Transformers, Sentence-Transformers, and TIMM. </span>
+<span class="sd">The goal is to provide a &quot;black box&quot; tool suitable for educational and research purposes, </span>
+<span class="sd">allowing users to quickly extract meaningful features for data analysis tasks </span>
+<span class="sd">without needing to delve into the complexities of each model&#39;s architecture or training.</span>
 
-<span class="sd">   * - Modality</span>
-<span class="sd">     - Model Name (Identifier)</span>
-<span class="sd">     - Feat. Dim</span>
-<span class="sd">     - Performance (Benchmark)</span>
-<span class="sd">     - FLOPS (G)</span>
-<span class="sd">     - Speed (Ref.)</span>
-<span class="sd">     - Supervision</span>
-<span class="sd">     - Source</span>
-<span class="sd">   * - Video</span>
-<span class="sd">     - `video_mvit_v2_s_tv`</span>
-<span class="sd">     - 768</span>
-<span class="sd">     - ~78.8% (K400 Top-1)</span>
-<span class="sd">     - 36.5 (16x224^2)</span>
-<span class="sd">     - Medium</span>
-<span class="sd">     - Supervised</span>
-<span class="sd">     - torchvision</span>
-<span class="sd">   * - Video</span>
-<span class="sd">     - `video_s3d_g_tv`</span>
-<span class="sd">     - 1024</span>
-<span class="sd">     - ~72.2% (K400 Top-1, S3D-G)</span>
-<span class="sd">     - 31.3 (16x224^2)</span>
-<span class="sd">     - Medium</span>
-<span class="sd">     - Supervised</span>
-<span class="sd">     - torchvision</span>
-<span class="sd">   * - Video</span>
-<span class="sd">     - `r2plus1d_18`</span>
-<span class="sd">     - 512</span>
-<span class="sd">     - ~65.2% (K400 Top-1, R(2+1)D-18)</span>
-<span class="sd">     - 32 (16x112^2)</span>
-<span class="sd">     - Fast</span>
-<span class="sd">     - Supervised</span>
-<span class="sd">     - torchvision</span>
-<span class="sd">   * - Video</span>
-<span class="sd">     - `video_swin_t`</span>
-<span class="sd">     - 768</span>
-<span class="sd">     - ~78.8% (K400 Top-1, Swin-T)</span>
-<span class="sd">     - 48 (32x224^2)</span>
-<span class="sd">     - Medium</span>
-<span class="sd">     - Supervised</span>
-<span class="sd">     - torchvision</span>
-<span class="sd">   * - Video</span>
-<span class="sd">     - `videomae_base_k400_pt`</span>
-<span class="sd">     - 768</span>
-<span class="sd">     - ~81.2% (K400 Top-1, ViT-B)</span>
-<span class="sd">     - N/A</span>
-<span class="sd">     - Medium</span>
-<span class="sd">     - Supervised (PT+FT)</span>
-<span class="sd">     - transformers</span>
+<span class="sd">This library is compatible with the scikit-learn transformer API and includes a </span>
+<span class="sd">callable self-test function (`run_self_tests()`) to verify model availability </span>
+<span class="sd">and basic functionality in your environment.</span>
 
+<span class="sd">Core Features</span>
+<span class="sd">-------------</span>
+<span class="sd">- **Unified API**: Consistent `DLFeatExtractor` class for all modalities.</span>
+<span class="sd">- **Scikit-learn Compatible**: Implements `BaseEstimator` and `TransformerMixin`.</span>
+<span class="sd">- **Multi-Modal Support**: Features from images, videos, audio, and text.</span>
+<span class="sd">- **Extensive Model Zoo**: Access to a wide range of pre-trained models.</span>
+<span class="sd">- **Automatic Handling**: Manages model loading, preprocessing, and device placement.</span>
+<span class="sd">- **Single-File Library**: Easy to integrate (dependencies must be installed).</span>
 
-<span class="sd">*(Note: Full Model Zoo table is extensive and located at the beginning of the file.</span>
-<span class="sd">Performance, FLOPS, and Speed are indicative and will be updated.)*</span>
-
+<span class="sd">For detailed installation instructions, a &quot;Getting Started&quot; guide with code examples,</span>
+<span class="sd">the complete Model Zoo, and API reference, please refer to the full documentation.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.4.9&quot;</span> 
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.5.0&quot;</span> 
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torchvision</span> 
@@ -252,7 +211,7 @@
         <span class="nd">@staticmethod</span>
         <span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;Scipy not installed, cannot write dummy audio.&quot;</span><span class="p">)</span>
 
-<span class="c1"># PyTorchVideo and its mock are removed as it&#39;s no longer a direct dependency for listed models.</span>
+<span class="c1"># PyTorchVideo related imports and mocks are removed as it&#39;s no longer a direct dependency for listed models.</span>
 
 <span class="n">MODEL_CONFIGS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1"># --- Image Models ---</span>
@@ -272,14 +231,12 @@
     <span class="s2">&quot;vit_base_patch16_224&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">768</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;timm&quot;</span><span class="p">,</span> <span class="s2">&quot;timm_name&quot;</span><span class="p">:</span> <span class="s2">&quot;vit_base_patch16_224.mae&quot;</span><span class="p">},</span> 
     <span class="s2">&quot;dinov2_base&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">768</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;transformers&quot;</span><span class="p">,</span> <span class="s2">&quot;hf_name&quot;</span><span class="p">:</span> <span class="s2">&quot;facebook/dinov2-base&quot;</span><span class="p">},</span>
 
-    <span class="c1"># --- Video Models (Refactored) ---</span>
+    <span class="c1"># --- Video Models (Refactored - MViT removed) ---</span>
     <span class="c1"># torchvision models</span>
     <span class="s2">&quot;r2plus1d_18&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;video&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;torchvision&quot;</span><span class="p">,</span> <span class="s2">&quot;tv_model_name&quot;</span><span class="p">:</span><span class="s2">&quot;r2plus1d_18&quot;</span><span class="p">,</span> <span class="s2">&quot;clip_len&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;frame_rate&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">112</span><span class="p">},</span> 
     <span class="s2">&quot;video_swin_t&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;video&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">768</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;torchvision&quot;</span><span class="p">,</span> <span class="s2">&quot;tv_model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;swin3d_t&quot;</span><span class="p">,</span> <span class="s2">&quot;clip_len&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">},</span> 
     <span class="s2">&quot;video_swin_s&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;video&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">768</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;torchvision&quot;</span><span class="p">,</span> <span class="s2">&quot;tv_model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;swin3d_s&quot;</span><span class="p">,</span> <span class="s2">&quot;clip_len&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">},</span> 
     <span class="s2">&quot;video_swin_b&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;video&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;torchvision&quot;</span><span class="p">,</span> <span class="s2">&quot;tv_model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;swin3d_b&quot;</span><span class="p">,</span> <span class="s2">&quot;clip_len&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">},</span>
-    <span class="s2">&quot;video_mvit_v2_s_tv&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;video&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">768</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;torchvision&quot;</span><span class="p">,</span> <span class="s2">&quot;tv_model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;mvit_v2_s&quot;</span><span class="p">,</span> <span class="s2">&quot;clip_len&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">},</span> <span class="c1"># Default K400 weights take 16x224x224</span>
-    <span class="s2">&quot;video_s3d_g_tv&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;video&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;torchvision&quot;</span><span class="p">,</span> <span class="s2">&quot;tv_model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;s3d&quot;</span><span class="p">,</span> <span class="s2">&quot;clip_len&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">},</span> <span class="c1"># S3D-G, K400 weights take 16x224x224</span>
     
     <span class="c1"># transformers models</span>
     <span class="s2">&quot;videomae_base_k400_pt&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;video&quot;</span><span class="p">,</span> <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="mi">768</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;transformers&quot;</span><span class="p">,</span> <span class="s2">&quot;hf_name&quot;</span><span class="p">:</span> <span class="s2">&quot;MCG-NJU/videomae-base-finetuned-kinetics&quot;</span><span class="p">,</span> <span class="s2">&quot;num_frames&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">},</span>
@@ -299,7 +256,7 @@
 
 <span class="n">DEFAULT_MODELS_TO_TEST</span> <span class="o">=</span> <span class="p">[</span> 
     <span class="s2">&quot;resnet18&quot;</span><span class="p">,</span> <span class="s2">&quot;efficientnet_b0&quot;</span><span class="p">,</span> <span class="s2">&quot;mobilenet_v2&quot;</span><span class="p">,</span> <span class="s2">&quot;vit_tiny_patch16_224&quot;</span><span class="p">,</span> <span class="s2">&quot;dinov2_base&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;r2plus1d_18&quot;</span><span class="p">,</span> <span class="s2">&quot;videomae_base_k400_pt&quot;</span><span class="p">,</span> <span class="s2">&quot;video_swin_t&quot;</span><span class="p">,</span> <span class="s2">&quot;video_mvit_v2_s_tv&quot;</span><span class="p">,</span> <span class="s2">&quot;video_s3d_g_tv&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;r2plus1d_18&quot;</span><span class="p">,</span> <span class="s2">&quot;videomae_base_k400_pt&quot;</span><span class="p">,</span> <span class="s2">&quot;video_swin_t&quot;</span><span class="p">,</span>
     <span class="s2">&quot;wav2vec2_base&quot;</span><span class="p">,</span> <span class="s2">&quot;sentence-bert&quot;</span><span class="p">,</span> 
     <span class="s2">&quot;clip_vit_b32&quot;</span><span class="p">,</span> <span class="s2">&quot;xclip_base_patch16&quot;</span>
 <span class="p">]</span>
@@ -316,6 +273,7 @@
 <div class="viewcode-block" id="DLFeatExtractor">
 <a class="viewcode-back" href="../index.html#DLFeat.DLFeatExtractor">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DLFeatExtractor</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+    <span class="c1"># ... (Constructor, get_feature_dimension, get_model_config same as v0.4.8) ...</span>
 <div class="viewcode-block" id="DLFeatExtractor.__init__">
 <a class="viewcode-back" href="../index.html#DLFeat.DLFeatExtractor.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">):</span>
@@ -368,6 +326,7 @@
 
     
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_image_model_torchvision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name_tv</span><span class="p">):</span>
+        <span class="c1"># ... (same as v0.4.8)</span>
         <span class="n">model_fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">tv_models</span><span class="p">,</span> <span class="n">model_name_tv</span><span class="p">)</span>
         
         <span class="n">weights_enum_name_to_try</span> <span class="o">=</span> <span class="kc">None</span>
@@ -441,6 +400,7 @@
             <span class="k">pass</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_image_model_timm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timm_model_name</span><span class="p">):</span>
+        <span class="c1"># ... (same as v0.4.8)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">timm</span><span class="p">,</span> <span class="s1">&#39;create_model&#39;</span><span class="p">):</span> 
              <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;TIMM library is not installed. Please install it: pip install timm&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">timm</span><span class="o">.</span><span class="n">create_model</span><span class="p">(</span><span class="n">timm_model_name</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -451,6 +411,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;input_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_config</span><span class="p">[</span><span class="s1">&#39;input_size&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_image_model_dinov2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># ... (same as v0.4.8)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">Dinov2Model</span><span class="p">,</span> <span class="s1">&#39;from_pretrained&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">AutoImageProcessor</span><span class="p">,</span> <span class="s1">&#39;from_pretrained&#39;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
                 <span class="s2">&quot;Transformers components (Dinov2Model or AutoImageProcessor) not available or are dummy classes. &quot;</span>
@@ -462,6 +423,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># ... (same as v0.4.8, with MViT removed from Transformers video logic)</span>
         <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">video_frame_transform</span> <span class="o">=</span> <span class="kc">None</span> 
 
@@ -509,19 +471,15 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">tv_video_models</span><span class="p">,</span> <span class="n">actual_tv_model_name</span><span class="p">):</span> 
                     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Video model &#39;</span><span class="si">{</span><span class="n">actual_tv_model_name</span><span class="si">}</span><span class="s2">&#39; not found in torchvision.models.video.&quot;</span><span class="p">)</span>
                 <span class="n">model_fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">tv_video_models</span><span class="p">,</span> <span class="n">actual_tv_model_name</span><span class="p">)</span>
-                
                 <span class="n">weights_enum_name_map</span> <span class="o">=</span> <span class="p">{</span> 
                     <span class="s2">&quot;r2plus1d_18&quot;</span><span class="p">:</span> <span class="s2">&quot;R2Plus1D_18_Weights&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;swin3d_t&quot;</span><span class="p">:</span> <span class="s2">&quot;Swin3D_T_Weights&quot;</span><span class="p">,</span> 
                     <span class="s2">&quot;swin3d_s&quot;</span><span class="p">:</span> <span class="s2">&quot;Swin3D_S_Weights&quot;</span><span class="p">,</span> 
-                    <span class="s2">&quot;swin3d_b&quot;</span><span class="p">:</span> <span class="s2">&quot;Swin3D_B_Weights&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;mvit_v2_s&quot;</span><span class="p">:</span> <span class="s2">&quot;MViT_V2_S_Weights&quot;</span><span class="p">,</span> <span class="c1"># Added for MViT</span>
-                    <span class="s2">&quot;s3d&quot;</span><span class="p">:</span> <span class="s2">&quot;S3D_Weights&quot;</span>             <span class="c1"># Added for S3D</span>
+                    <span class="s2">&quot;swin3d_b&quot;</span><span class="p">:</span> <span class="s2">&quot;Swin3D_B_Weights&quot;</span><span class="p">,</span> 
                 <span class="p">}</span>
                 <span class="n">lookup_key_for_map</span> <span class="o">=</span> <span class="n">actual_tv_model_name</span> 
                 <span class="n">weights_enum_name</span> <span class="o">=</span> <span class="n">weights_enum_name_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lookup_key_for_map</span><span class="p">)</span>
                 <span class="n">weights_value_name</span> <span class="o">=</span> <span class="s2">&quot;DEFAULT&quot;</span> 
-                
                 <span class="k">if</span> <span class="n">weights_enum_name</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">weights_enum_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">tv_video_models</span><span class="p">,</span> <span class="n">weights_enum_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -556,29 +514,11 @@
                     <span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model_fn</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
 
-                <span class="c1"># Classifier head removal</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_name</span> <span class="o">==</span> <span class="s2">&quot;video_s3d_g_tv&quot;</span><span class="p">:</span> <span class="c1"># S3D has a &#39;classifier&#39; attribute (Sequential)</span>
-                    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;classifier&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">classifier</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">):</span>
-                        <span class="c1"># Replace the last linear layer in S3D&#39;s classifier</span>
-                        <span class="c1"># S3D classifier: (0): Dropout(p=0.2, inplace=False), (1): Conv3d(...), (2): Dropout(p=0.2, inplace=False), (3): Conv3d(...)</span>
-                        <span class="c1"># The final Conv3d acts as the classifier. We want features before it.</span>
-                        <span class="c1"># A common approach is to replace the final layer or the entire block.</span>
-                        <span class="c1"># For S3D, the features are typically taken before the final Conv3d and avg pooling.</span>
-                        <span class="c1"># Let&#39;s replace the entire classifier block for simplicity if it&#39;s a Sequential.</span>
-                        <span class="c1"># The actual feature extraction might need to tap into an earlier layer if this doesn&#39;t give expected dim.</span>
-                        <span class="c1"># For now, replacing the whole classifier block.</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
-                    <span class="k">else</span><span class="p">:</span> <span class="c1"># Fallback if structure is different</span>
-                         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not specifically adapt S3D classifier head for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">. Using generic fc/head removal.&quot;</span><span class="p">)</span>
-                         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;fc&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
-                         <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;head&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
-
-                <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;head&#39;</span><span class="p">):</span> <span class="c1"># For MViT, Swin</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;head&#39;</span><span class="p">):</span> 
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">head</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
                     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">head</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">head</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">head</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">):</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">head</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
-                <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;fc&#39;</span><span class="p">):</span> <span class="c1"># For R(2+1)D</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span> 
+                <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;fc&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span> 
                 
                 <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
 
@@ -591,7 +531,7 @@
                         <span class="n">T</span><span class="o">.</span><span class="n">Resize</span><span class="p">([</span><span class="n">input_size</span><span class="p">,</span> <span class="n">input_size</span><span class="p">],</span> <span class="n">antialias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
                     <span class="p">])</span>
             
-            <span class="k">elif</span> <span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;transformers&quot;</span><span class="p">:</span> <span class="c1"># Only VideoMAE now</span>
+            <span class="k">elif</span> <span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;transformers&quot;</span><span class="p">:</span> 
                 <span class="n">hf_model_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;hf_name&quot;</span><span class="p">]</span>
                 <span class="n">hf_processor_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;hf_name_processor&quot;</span><span class="p">,</span> <span class="n">hf_model_name</span><span class="p">)</span> 
 
@@ -642,7 +582,6 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported task type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">task_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         
     <span class="k">def</span><span class="w"> </span><span class="nf">_preprocess_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_input</span><span class="p">):</span>
-        <span class="c1"># ... (same as v0.4.7)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image_input</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">image_input</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image file: </span><span class="si">{</span><span class="n">image_input</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_input</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
@@ -657,17 +596,17 @@
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No image transform or processor available for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_preprocess_text_transformers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_input</span><span class="p">):</span>
-        <span class="c1"># ... (same as v0.4.7)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">(</span><span class="n">text_input</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_preprocess_video_torchvision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_path</span><span class="p">):</span>
-        <span class="c1"># ... (same as v0.4.7)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">video_path</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Video file: </span><span class="si">{</span><span class="n">video_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Reverted to default output_format</span>
             <span class="n">frames</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_video</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="n">pts_unit</span><span class="o">=</span><span class="s1">&#39;sec&#39;</span><span class="p">)</span> 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to read </span><span class="si">{</span><span class="n">video_path</span><span class="si">}</span><span class="s2"> using torchvision.io: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">frames</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No frames from </span><span class="si">{</span><span class="n">video_path</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
         
+        <span class="c1"># Assuming default output is THWC (Time, Height, Width, Channel)</span>
         <span class="n">frames</span> <span class="o">=</span> <span class="n">frames</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># T, C, H, W uint8</span>
 
         <span class="n">total_frames</span> <span class="o">=</span> <span class="n">frames</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -709,12 +648,14 @@
         <span class="k">return</span> <span class="n">processed_clip</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_preprocess_video_transformers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_path</span><span class="p">):</span> 
-        <span class="c1"># ... (same as v0.4.7)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">video_path</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Video file: </span><span class="si">{</span><span class="n">video_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Reverted to default output_format</span>
             <span class="n">frames_tensor</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_video</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="n">pts_unit</span><span class="o">=</span><span class="s1">&#39;sec&#39;</span><span class="p">)</span> 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to read </span><span class="si">{</span><span class="n">video_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">frames_tensor</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No frames from </span><span class="si">{</span><span class="n">video_path</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Assuming default output is THWC (Time, Height, Width, Channel)</span>
         
         <span class="n">total_frames</span> <span class="o">=</span> <span class="n">frames_tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">num_sample_frames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;num_frames&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> 
@@ -725,6 +666,7 @@
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Video </span><span class="si">{</span><span class="n">video_path</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="n">total_frames</span><span class="si">}</span><span class="s2"> frames, less than configured </span><span class="si">{</span><span class="n">num_sample_frames</span><span class="si">}</span><span class="s2">. Using all </span><span class="si">{</span><span class="n">total_frames</span><span class="si">}</span><span class="s2"> frames and padding.&quot;</span><span class="p">)</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">total_frames</span><span class="p">)</span>
             <span class="n">padding_needed</span> <span class="o">=</span> <span class="n">num_sample_frames</span> <span class="o">-</span> <span class="n">total_frames</span>
+            <span class="c1"># frames_tensor is (T,H,W,C) assuming default THWC</span>
             <span class="n">video_frames_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">frames_tensor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">padding_needed</span><span class="p">):</span> <span class="n">video_frames_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">video_frames_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
@@ -737,7 +679,6 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">video_frames_list</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span> 
     
     <span class="k">def</span><span class="w"> </span><span class="nf">_preprocess_audio</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">audio_input</span><span class="p">):</span>
-        <span class="c1"># ... (same as v0.4.7)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">TA</span><span class="p">,</span> <span class="s1">&#39;Resample&#39;</span><span class="p">):</span> 
              <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;Torchaudio (transforms.Resample) dummy class detected or not installed.&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">audio_input</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -760,7 +701,6 @@
 <a class="viewcode-back" href="../index.html#DLFeat.DLFeatExtractor.transform">[docs]</a>
     <span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="c1"># ... (same as v0.4.7, with XCLIP feature extraction correction)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Input X for transform must be a list of items.&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">X</span><span class="p">:</span> 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_type</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;multimodal&quot;</span><span class="p">):</span> <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;image_features&quot;</span><span class="p">,</span> <span class="s2">&quot;text_features&quot;</span><span class="p">,</span> <span class="s2">&quot;video_features&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_type</span><span class="p">}</span>
@@ -867,15 +807,17 @@
                 <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span> 
                 
                 <span class="c1"># Corrected XCLIP feature extraction:</span>
-                <span class="n">raw_video_embeds</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">video_embeds</span>
-                <span class="n">raw_text_embeds</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">text_embeds</span>
+                <span class="c1"># Directly use the documented final embeddings from XCLIPModelOutput</span>
+                <span class="c1"># These should be (batch_size, output_dim)</span>
+                <span class="n">video_f</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">video_embeds</span>
+                <span class="n">text_f</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">text_embeds</span>
                 
-                <span class="n">video_f</span> <span class="o">=</span> <span class="n">raw_video_embeds</span>
-                <span class="k">if</span> <span class="n">video_f</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> <span class="c1"># (batch_size, num_video_tokens, hidden_dim)</span>
-                    <span class="n">video_f</span> <span class="o">=</span> <span class="n">video_f</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Mean pool over video tokens</span>
+                <span class="c1"># If by any chance they are still 3D (e.g., (batch, seq_len, dim)), reduce them.</span>
+                <span class="c1"># This is a safeguard based on the previous error, though ideally not needed if docs are accurate.</span>
+                <span class="k">if</span> <span class="n">video_f</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">video_f</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_tuples</span><span class="p">):</span> 
+                    <span class="n">video_f</span> <span class="o">=</span> <span class="n">video_f</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                 
-                <span class="n">text_f</span> <span class="o">=</span> <span class="n">raw_text_embeds</span>
-                <span class="k">if</span> <span class="n">text_f</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> <span class="c1"># (batch_size, num_text_tokens, hidden_dim)</span>
+                <span class="k">if</span> <span class="n">text_f</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">text_f</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_tuples</span><span class="p">):</span> 
                     <span class="n">text_f</span> <span class="o">=</span> <span class="n">text_f</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="c1"># Take CLS token embedding</span>
 
                 <span class="n">vid_feats_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">video_f</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>

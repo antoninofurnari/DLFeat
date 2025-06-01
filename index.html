@@ -44,7 +44,7 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Welcome to DLFeat’s documentation!</a><ul>
 <li><a class="reference internal" href="#dlfeat-deep-learning-feature-extraction-library">DLFeat: Deep Learning Feature Extraction Library</a><ul>
-<li><a class="reference internal" href="#model-zoo">Model Zoo</a></li>
+<li><a class="reference internal" href="#core-features">Core Features</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#DLFeat.list_available_models"><code class="docutils literal notranslate"><span class="pre">list_available_models()</span></code></a></li>
@@ -90,94 +90,28 @@
 <span id="welcome-to-dlfeat-s-documentation"></span><h1>Welcome to DLFeat’s documentation!<a class="headerlink" href="#module-DLFeat" title="Link to this heading"></a></h1>
 <section id="dlfeat-deep-learning-feature-extraction-library">
 <h2>DLFeat: Deep Learning Feature Extraction Library<a class="headerlink" href="#dlfeat-deep-learning-feature-extraction-library" title="Link to this heading"></a></h2>
-<p># … (Main docstring same as v0.3.0)
-Version 0.4.9:
-- Adds MViT-V2-S and S3D-G video models from torchvision.
-# …</p>
-<section id="model-zoo">
-<h3>Model Zoo<a class="headerlink" href="#model-zoo" title="Link to this heading"></a></h3>
-<p># … (Model Zoo table updated for new models)
-.. list-table:: DLFeat Model Zoo (Video Model Focus - MViT &amp; S3D from TorchVision)</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">widths<span class="colon">:</span></dt>
-<dd class="field-odd"><p>15 25 10 10 10 10 15 15</p>
-</dd>
-<dt class="field-even">header-rows<span class="colon">:</span></dt>
-<dd class="field-even"><p>1</p>
-</dd>
-</dl>
+<p><strong>DLFeat</strong> is a Python library designed for easy and modular feature extraction
+from various data modalities including images, videos, audio, and text.
+It leverages powerful pre-trained models from libraries like PyTorch, torchvision,
+Transformers, Sentence-Transformers, and TIMM.
+The goal is to provide a “black box” tool suitable for educational and research purposes,
+allowing users to quickly extract meaningful features for data analysis tasks
+without needing to delve into the complexities of each model’s architecture or training.</p>
+<p>This library is compatible with the scikit-learn transformer API and includes a
+callable self-test function (<cite>run_self_tests()</cite>) to verify model availability
+and basic functionality in your environment.</p>
+<section id="core-features">
+<h3>Core Features<a class="headerlink" href="#core-features" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><ul>
-<li><p>Modality</p></li>
-<li><p>Model Name (Identifier)</p></li>
-<li><p>Feat. Dim</p></li>
-<li><p>Performance (Benchmark)</p></li>
-<li><p>FLOPS (G)</p></li>
-<li><p>Speed (Ref.)</p></li>
-<li><p>Supervision</p></li>
-<li><p>Source</p></li>
+<li><p><strong>Unified API</strong>: Consistent <cite>DLFeatExtractor</cite> class for all modalities.</p></li>
+<li><p><strong>Scikit-learn Compatible</strong>: Implements <cite>BaseEstimator</cite> and <cite>TransformerMixin</cite>.</p></li>
+<li><p><strong>Multi-Modal Support</strong>: Features from images, videos, audio, and text.</p></li>
+<li><p><strong>Extensive Model Zoo</strong>: Access to a wide range of pre-trained models.</p></li>
+<li><p><strong>Automatic Handling</strong>: Manages model loading, preprocessing, and device placement.</p></li>
+<li><p><strong>Single-File Library</strong>: Easy to integrate (dependencies must be installed).</p></li>
 </ul>
-</li>
-<li><ul>
-<li><p>Video</p></li>
-<li><p><cite>video_mvit_v2_s_tv</cite></p></li>
-<li><p>768</p></li>
-<li><p>~78.8% (K400 Top-1)</p></li>
-<li><p>36.5 (16x224^2)</p></li>
-<li><p>Medium</p></li>
-<li><p>Supervised</p></li>
-<li><p>torchvision</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p>Video</p></li>
-<li><p><cite>video_s3d_g_tv</cite></p></li>
-<li><p>1024</p></li>
-<li><p>~72.2% (K400 Top-1, S3D-G)</p></li>
-<li><p>31.3 (16x224^2)</p></li>
-<li><p>Medium</p></li>
-<li><p>Supervised</p></li>
-<li><p>torchvision</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p>Video</p></li>
-<li><p><cite>r2plus1d_18</cite></p></li>
-<li><p>512</p></li>
-<li><p>~65.2% (K400 Top-1, R(2+1)D-18)</p></li>
-<li><p>32 (16x112^2)</p></li>
-<li><p>Fast</p></li>
-<li><p>Supervised</p></li>
-<li><p>torchvision</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p>Video</p></li>
-<li><p><cite>video_swin_t</cite></p></li>
-<li><p>768</p></li>
-<li><p>~78.8% (K400 Top-1, Swin-T)</p></li>
-<li><p>48 (32x224^2)</p></li>
-<li><p>Medium</p></li>
-<li><p>Supervised</p></li>
-<li><p>torchvision</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p>Video</p></li>
-<li><p><cite>videomae_base_k400_pt</cite></p></li>
-<li><p>768</p></li>
-<li><p>~81.2% (K400 Top-1, ViT-B)</p></li>
-<li><p>N/A</p></li>
-<li><p>Medium</p></li>
-<li><p>Supervised (PT+FT)</p></li>
-<li><p>transformers</p></li>
-</ul>
-</li>
-</ul>
-</div></blockquote>
-<p><em>(Note: Full Model Zoo table is extensive and located at the beginning of the file.
-Performance, FLOPS, and Speed are indicative and will be updated.)</em></p>
+<p>For detailed installation instructions, a “Getting Started” guide with code examples,
+the complete Model Zoo, and API reference, please refer to the full documentation.</p>
 </section>
 </section>
 <dl class="py function">
