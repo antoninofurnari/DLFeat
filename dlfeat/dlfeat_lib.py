@@ -610,7 +610,7 @@ class DLFeatExtractor(BaseEstimator, TransformerMixin):
         return self.processor(processed_input_data, sampling_rate=self.target_sr, return_tensors="pt", padding=True)
 
     @torch.no_grad()
-    def fit(self, X):
+    def fit(self, X, y=None):
         pass
 
     @torch.no_grad()
